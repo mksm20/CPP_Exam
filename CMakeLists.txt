@@ -13,7 +13,7 @@ include_directories(${GRAPHVIZ_INCLUDE_DIRS})
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GRAPHVIZ REQUIRED libgvc)
 
-# Add the required libraries
+# Add libraries for graphviz
 include_directories(${GRAPHVIZ_INCLUDE_DIRS})
 link_directories(${GRAPHVIZ_LIBRARY_DIRS})
 add_definitions(${GRAPHVIZ_CFLAGS_OTHER})
@@ -28,8 +28,6 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-# Add debugging flags
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 enable_testing()
 
 find_package(GTest REQUIRED)
@@ -43,29 +41,29 @@ include_directories(${Python3_NumPy_INCLUDE_DIR})
 
 # Add executable
 add_executable(Exam_Lib
-        main.cpp
-        ../src/Species.cpp
-        ../src/Reaction.cpp
-        ../src/SystemState.cpp
-        ../src/Simulator.cpp
-        ../src/Vessel.cpp
-        ../Vessel.h
-        ../src/GraphVisualizer.cpp
-        GraphVisualizer.h
-        PeakHospitalizationObserver.h
+        src/main.cpp
+        src/Species.cpp
+        src/Reaction.cpp
+        src/SystemState.cpp
+        src/Simulator.cpp
+        src/Vessel.cpp
+        include/Vessel.h
+        src/GraphVisualizer.cpp
+        include/GraphVisualizer.h
+        include/PeakHospitalizationObserver.h
 )
 add_executable(runUnitTests
-        ../test_main.cpp
-        ../test_symbol_table.cpp
+        test/test_main.cpp
+        test/test_symbol_table.cpp
 )
 # Benchmark executable
 add_executable(runBenchmarks
-        ../benchmark.cpp
-        ../src/Reaction.cpp
-        ../src/Species.cpp
-        ../src/SystemState.cpp
-        ../src/Simulator.cpp
-        ../src/Vessel.cpp
+        src/benchmark.cpp
+        src/Reaction.cpp
+        src/Species.cpp
+        src/SystemState.cpp
+        src/Simulator.cpp
+        src/Vessel.cpp
 )
 target_link_libraries(runBenchmarks pthread)
 target_link_libraries(runUnitTests ${GTEST_LIBRARIES} pthread)

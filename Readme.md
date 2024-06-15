@@ -8,26 +8,26 @@ circadian rhythm genetic oscillator.
 
 ## Project Structure
 project_root/
-├── CMakeLists.txt
-├── include/
-│ ├── Reaction.h
-│ ├── Species.h
-│ ├── SystemState.h
-│ ├── Simulator.h
-│ ├── Vessel.h
-│ ├── Observer.h
-│ └── SymbolTable.h
-├── src/
-│ ├── main.cpp
-│ ├── Reaction.cpp
-│ ├── Species.cpp
-│ ├── SystemState.cpp
-│ ├── Simulator.cpp
-│ ├── Vessel.cpp
-│ └── benchmark.cpp
-└── test/
-├── test_main.cpp
-└── test_symbol_table.cpp
+├── CMakeLists.txt \n
+├── include/ \n
+│ ├── Reaction.h \n
+│ ├── Species.h \n
+│ ├── SystemState.h \n
+│ ├── Simulator.h \n
+│ ├── Vessel.h \n
+│ ├── Observer.h \n
+│ └── SymbolTable.h \n
+├── src/ \n
+│ ├── main.cpp \n
+│ ├── Reaction.cpp \n
+│ ├── Species.cpp \n
+│ ├── SystemState.cpp \n
+│ ├── Simulator.cpp \n
+│ ├── Vessel.cpp \n
+│ └── benchmark.cpp \n
+└── test/ \n
+├── test_main.cpp \n
+└── test_symbol_table.cpp \n
 
 ## Requirements
 
@@ -72,7 +72,7 @@ make
 ```
 
 ### Usage ###
-*** SEIHR Simulation Example ***
+**SEIHR Simulation Example**
 Define Vessel
 ```c++
 Vessel seihr(uint32_t N, std::shared_ptr<SystemState> state) {
@@ -126,7 +126,8 @@ int main() {
 
 ```
 
-*** Circadian Rhythm Simulation Example ***
+**Circadian Rhythm Simulation Example**
+
 Define Vessel
 ```c++
 Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
@@ -202,13 +203,13 @@ int main() {
 
 ```
 
-*** Using the Visualizer ***
+**Using the Visualizer**
 ```c++
     GraphVisualizer visualizer(vessel.getSpecies(), vessel.getReactions());
     visualizer.generateGraph("name.png");
 ```
 
-*** Using Matplotlib plt ***
+**Using Matplotlib plt**
 After running the simulations, you can use Matplotlib to plot the results over time. 
 Below is an example of how to plot the results of a simulation:
 
