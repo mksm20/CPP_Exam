@@ -1,30 +1,134 @@
-//
-// Created by martinmortensen on 6/14/24.
-//
-
 #include "Reaction.h"
+#include "Species.h"
 #include <random>
 #include <cmath>
+#include <iostream>
 
-Reaction::Reaction(const std::vector<std::string>& inputs, const std::vector<std::string>& outputs, double rate)
-        : inputs(inputs), outputs(outputs), rate(rate) {}
+namespace sim {
 
-double Reaction::calculateDelay(const std::map<std::string, int>& state) const {
-    double product = rate;
-    for (const auto& input : inputs) {
-        product *= state.at(input);
+    Reaction::Reaction(const std::vector<std::string>& inputs, const std::vector<std::string>& outputs, double rate)
+            : inputs(inputs), outputs(outputs), rate(rate) {
+        std::cerr << "Created reaction with inputs: ";
+        for (const auto& input : inputs) std::cerr << input << " ";
+        std::cerr << "and outputs: ";
+        for (const auto& output : outputs) std::cerr << output << " ";
+        std::cerr << "at rate: " << rate << std::endl;
     }
-    std::exponential_distribution<double> distribution(product);
-    std::random_device rd;
-    std::mt19937 generator(rd());
-    return distribution(generator);
-}
 
-void Reaction::execute(std::map<std::string, int>& state) const {
-    for (const auto& input : inputs) {
-        state[input]--;
+    double Reaction::calculateDelay(const std::map<std::string, int>& state) const {
+        double product = rate;
+        for (const auto& input : inputs) {
+            if (state.find(input) == state.end()) {
+                std::cerr << "Error: Key " << input << " not found in state map." << std::endl;
+                throw std::out_of_range("Key not found in state map.");
+            }
+            product *= state.at(input);
+        }
+        std::exponential_distribution<double> distribution(product);
+        std::random_device rd;
+        std::mt19937 generator(rd());
+        double delay = distribution(generator);
+        std::cerr << "Calculated delay for reaction: " << delay << std::endl;
+        return delay;
     }
-    for (const auto& output : outputs) {
-        state[output]++;
+
+    void Reaction::execute(std::map<std::string, int>& state) const {
+        std::cerr << "Executing reaction: ";
+        for (const auto& input : inputs) {
+            if (state.find(input) == state.end()) {
+                std::cerr << "Error: Key " << input << " not found in state map." << std::endl;
+                throw std::out_of_range("Key not found in state map.");
+            }
+            state[input]--;
+            std::cerr << "Decremented " << input << " to " << state[input] << ". ";
+        }
+        for (const auto& output : outputs) {
+            if (state.find(output) == state.end()) {
+                std::cerr << "Error: Key " << output << " not found in state map." << std::endl;
+                throw std::out_of_range("Key not found in state map.");
+            }
+            state[output]++;
+            std::cerr << "Incremented " << output << " to " << state[output] << ". ";
+        }
+        std::cerr << std::endl;
     }
-}
+
+    const std::vector<std::string>& Reaction::getInputs() const {
+        return inputs;
+    }
+
+    const std::vector<std::string>& Reaction::getOutputs() const {
+        return outputs;
+    }
+
+    Reaction operator>>(const Species& input, const Species& output) {
+        return Reaction({input.getName()}, {output.getName()}, 0.0);
+    }
+
+    Reaction operator>>(const std::vector<Species>& inputs, const Species& output) {
+        std::vector<std::string> inputNames;
+        for (const auto& input : inputs) {
+            inputNames.push_back(input.getName());
+        }
+        return Reaction(inputNames, {output.getName()}, 0.0);
+    }
+
+    Reaction operator>>(const Species& input, double rate) {
+        return Reaction({input.getName()}, {}, rate);
+    }
+
+    Reaction operator>>(const std::vector<Species>& inputs, double rate) {
+        std::vector<std::string> inputNames;
+        for (const auto& input : inputs) {
+            inputNames.push_back(input.getName());
+        }
+        return Reaction(inputNames, {}, rate);
+    }
+
+    Reaction operator>>(const CombinedSpecies& combined, double rate) {
+        std::vector<std::string> inputNames;
+        for (const auto& input : combined.getSpecies()) {
+            inputNames.push_back(input.getName());
+        }
+        return Reaction(inputNames, {}, rate);
+    }
+
+    Reaction operator>>(const CombinedSpecies& combined, const Species& output) {
+        std::vector<std::string> inputNames;
+        for (const auto& input : combined.getSpecies()) {
+            inputNames.push_back(input.getName());
+        }
+        return Reaction(inputNames, {output.getName()}, 0.0);
+    }
+
+    Reaction operator>>(const CombinedSpecies& combined, const CombinedSpecies& output) {
+        std::vector<std::string> inputNames;
+        std::vector<std::string> outputNames;
+        for (const auto& input : combined.getSpecies()) {
+            inputNames.push_back(input.getName());
+        }
+        for (const auto& out : output.getSpecies()) {
+            outputNames.push_back(out.getName());
+        }
+        return Reaction(inputNames, outputNames, 0.0);
+    }
+
+    Reaction Reaction::operator>>=(double rate) const {
+        return Reaction(inputs, outputs, rate);
+    }
+
+    Reaction Reaction::operator>>=(const Species& output) const {
+        std::vector<std::string> newOutputs = outputs;
+        newOutputs.push_back(output.getName());
+        return Reaction(inputs, newOutputs, rate);
+    }
+
+    Reaction Reaction::operator>>=(const CombinedSpecies& outputs) const {
+        std::vector<std::string> newOutputs = this->outputs;
+        for (const auto& output : outputs.getSpecies()) {
+            newOutputs.push_back(output.getName());
+        }
+        return Reaction(inputs, newOutputs, rate);
+    }
+
+} // namespace sim

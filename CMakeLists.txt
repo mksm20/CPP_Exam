@@ -17,6 +17,9 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+# Add debugging flags
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+
 # Include NumPy directory
 include_directories(${Python3_NumPy_INCLUDE_DIR})
 
@@ -28,6 +31,8 @@ add_executable(Exam_Lib
         SystemState.cpp
         Simulator.cpp
         SymbolTable.cpp
+        Vessel.cpp
+        Vessel.h
 )
 
 # Link libraries

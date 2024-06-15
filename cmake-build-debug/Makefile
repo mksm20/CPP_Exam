@@ -249,6 +249,30 @@ SystemState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SystemState.cpp.s
 .PHONY : SystemState.cpp.s
 
+Vessel.o: Vessel.cpp.o
+.PHONY : Vessel.o
+
+# target to build an object file
+Vessel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.o
+.PHONY : Vessel.cpp.o
+
+Vessel.i: Vessel.cpp.i
+.PHONY : Vessel.i
+
+# target to preprocess a source file
+Vessel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.i
+.PHONY : Vessel.cpp.i
+
+Vessel.s: Vessel.cpp.s
+.PHONY : Vessel.s
+
+# target to generate assembly for a file
+Vessel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.s
+.PHONY : Vessel.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -297,6 +321,9 @@ help:
 	@echo "... SystemState.o"
 	@echo "... SystemState.i"
 	@echo "... SystemState.s"
+	@echo "... Vessel.o"
+	@echo "... Vessel.i"
+	@echo "... Vessel.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o.d"
   "CMakeFiles/Exam_Lib.dir/SystemState.cpp.o"
   "CMakeFiles/Exam_Lib.dir/SystemState.cpp.o.d"
+  "CMakeFiles/Exam_Lib.dir/Vessel.cpp.o"
+  "CMakeFiles/Exam_Lib.dir/Vessel.cpp.o.d"
   "CMakeFiles/Exam_Lib.dir/main.cpp.o"
   "CMakeFiles/Exam_Lib.dir/main.cpp.o.d"
   "Exam_Lib"

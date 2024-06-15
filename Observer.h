@@ -5,13 +5,14 @@
 #ifndef EXAM_LIB_OBSERVER_H
 #define EXAM_LIB_OBSERVER_H
 #pragma once
+namespace sim {
+    class Observer {
+    public:
+        virtual void observe(const SystemState &state) = 0;
 
-class Observer {
-public:
-    virtual void observe(const SystemState& state) = 0;
-    virtual ~Observer() = default;
-};
-
+        virtual ~Observer() = default;
+    };
+}
 
 
 #endif //EXAM_LIB_OBSERVER_H
