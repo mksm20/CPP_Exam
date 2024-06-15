@@ -129,6 +129,30 @@ Exam_Lib/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/build
 .PHONY : Exam_Lib/fast
 
+GraphVisualizer.o: GraphVisualizer.cpp.o
+.PHONY : GraphVisualizer.o
+
+# target to build an object file
+GraphVisualizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o
+.PHONY : GraphVisualizer.cpp.o
+
+GraphVisualizer.i: GraphVisualizer.cpp.i
+.PHONY : GraphVisualizer.i
+
+# target to preprocess a source file
+GraphVisualizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.i
+.PHONY : GraphVisualizer.cpp.i
+
+GraphVisualizer.s: GraphVisualizer.cpp.s
+.PHONY : GraphVisualizer.s
+
+# target to generate assembly for a file
+GraphVisualizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.s
+.PHONY : GraphVisualizer.cpp.s
+
 Reaction.o: Reaction.cpp.o
 .PHONY : Reaction.o
 
@@ -200,30 +224,6 @@ Species.s: Species.cpp.s
 Species.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Species.cpp.s
 .PHONY : Species.cpp.s
-
-SymbolTable.o: SymbolTable.cpp.o
-.PHONY : SymbolTable.o
-
-# target to build an object file
-SymbolTable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o
-.PHONY : SymbolTable.cpp.o
-
-SymbolTable.i: SymbolTable.cpp.i
-.PHONY : SymbolTable.i
-
-# target to preprocess a source file
-SymbolTable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.i
-.PHONY : SymbolTable.cpp.i
-
-SymbolTable.s: SymbolTable.cpp.s
-.PHONY : SymbolTable.s
-
-# target to generate assembly for a file
-SymbolTable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.s
-.PHONY : SymbolTable.cpp.s
 
 SystemState.o: SystemState.cpp.o
 .PHONY : SystemState.o
@@ -306,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Exam_Lib"
+	@echo "... GraphVisualizer.o"
+	@echo "... GraphVisualizer.i"
+	@echo "... GraphVisualizer.s"
 	@echo "... Reaction.o"
 	@echo "... Reaction.i"
 	@echo "... Reaction.s"
@@ -315,9 +318,6 @@ help:
 	@echo "... Species.o"
 	@echo "... Species.i"
 	@echo "... Species.s"
-	@echo "... SymbolTable.o"
-	@echo "... SymbolTable.i"
-	@echo "... SymbolTable.s"
 	@echo "... SystemState.o"
 	@echo "... SystemState.i"
 	@echo "... SystemState.s"

@@ -14,9 +14,9 @@ CMake Error at /app/extra/clion/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMa
 
   It fails with the following output:
 
-    Change Dir: '/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-IYHexp'
+    Change Dir: '/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-af4l0a'
     
-    Run Build Command(s): /app/extra/clion/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c5afc/fast
+    Run Build Command(s): /app/extra/clion/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_98c36/fast
     No such file or directory
     
     

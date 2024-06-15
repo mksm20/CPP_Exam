@@ -1,7 +1,10 @@
 #ifndef EXAM_LIB_VESSEL_H
 #define EXAM_LIB_VESSEL_H
+#pragma once
 #include <vector>
 #include <string>
+#include <map>
+#include <memory>
 #include "Species.h"
 #include "Reaction.h"
 #include "SystemState.h"
@@ -10,7 +13,7 @@ namespace sim {
 
     class Vessel {
     public:
-        Vessel(const std::string& name, SystemState& state);
+        Vessel(const std::string& name, std::shared_ptr<SystemState> state);
         Species add(const std::string& name, int initialCount);
         void add(const Reaction& reaction);
         const std::string& getName() const;
@@ -21,7 +24,8 @@ namespace sim {
         std::string name;
         std::vector<Species> species;
         std::vector<Reaction> reactions;
-        SystemState& state;
+        std::map<std::string, Species> speciesMap;
+        std::shared_ptr<SystemState> state;
     };
 
 } // namespace sim

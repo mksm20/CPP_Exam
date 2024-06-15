@@ -7,6 +7,17 @@ set(CMAKE_CXX_STANDARD 23)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/matplotlibcpp)
 
+include_directories(${GRAPHVIZ_INCLUDE_DIRS})
+
+# Find Graphviz
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GRAPHVIZ REQUIRED libgvc)
+
+# Add the required libraries
+include_directories(${GRAPHVIZ_INCLUDE_DIRS})
+link_directories(${GRAPHVIZ_LIBRARY_DIRS})
+add_definitions(${GRAPHVIZ_CFLAGS_OTHER})
+
 # Find Python
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
@@ -30,10 +41,12 @@ add_executable(Exam_Lib
         Reaction.cpp
         SystemState.cpp
         Simulator.cpp
-        SymbolTable.cpp
         Vessel.cpp
         Vessel.h
+        GraphVisualizer.cpp
+        GraphVisualizer.h
 )
 
 # Link libraries
+target_link_libraries(Exam_Lib ${GRAPHVIZ_LIBRARIES})
 target_link_libraries(Exam_Lib Python3::Python)

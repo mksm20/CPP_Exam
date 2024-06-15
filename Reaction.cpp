@@ -28,19 +28,19 @@ namespace sim {
         std::random_device rd;
         std::mt19937 generator(rd());
         double delay = distribution(generator);
-        std::cerr << "Calculated delay for reaction: " << delay << std::endl;
+        //std::cerr << "Calculated delay for reaction: " << delay << std::endl;
         return delay;
     }
 
     void Reaction::execute(std::map<std::string, int>& state) const {
-        std::cerr << "Executing reaction: ";
+        //std::cerr << "Executing reaction: ";
         for (const auto& input : inputs) {
             if (state.find(input) == state.end()) {
                 std::cerr << "Error: Key " << input << " not found in state map." << std::endl;
                 throw std::out_of_range("Key not found in state map.");
             }
             state[input]--;
-            std::cerr << "Decremented " << input << " to " << state[input] << ". ";
+            ///std::cerr << "Decremented " << input << " to " << state[input] << ". ";
         }
         for (const auto& output : outputs) {
             if (state.find(output) == state.end()) {
@@ -48,9 +48,9 @@ namespace sim {
                 throw std::out_of_range("Key not found in state map.");
             }
             state[output]++;
-            std::cerr << "Incremented " << output << " to " << state[output] << ". ";
+            //std::cerr << "Incremented " << output << " to " << state[output] << ". ";
         }
-        std::cerr << std::endl;
+        //std::cerr << std::endl;
     }
 
     const std::vector<std::string>& Reaction::getInputs() const {
@@ -59,6 +59,10 @@ namespace sim {
 
     const std::vector<std::string>& Reaction::getOutputs() const {
         return outputs;
+    }
+
+    const double Reaction::getRate() const {
+        return rate;
     }
 
     Reaction operator>>(const Species& input, const Species& output) {

@@ -26,6 +26,7 @@ namespace sim {
         // Getters for inputs and outputs
         const std::vector<std::string>& getInputs() const;
         const std::vector<std::string>& getOutputs() const;
+        const double getRate() const;
 
     private:
         std::vector<std::string> inputs;

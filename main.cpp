@@ -5,16 +5,18 @@
 #include "SymbolTable.h"
 #include "Observer.h"
 #include "Vessel.h"
+#include "GraphVisualizer.h"
 #include <vector>
 #include <iostream>
 #include <map>
 #include <cmath>
+#include <numeric>
 #include "matplotlib-cpp/matplotlibcpp.h"
 
 namespace plt = matplotlibcpp;
 using namespace sim;
 
-Vessel seihr(uint32_t N, SystemState& state) {
+Vessel seihr(uint32_t N, std::shared_ptr<SystemState> state) {
     auto v = Vessel{"COVID19 SEIHR: " + std::to_string(N), state};
     const auto eps = 0.0009; // initial fraction of infectious
     const auto I0 = size_t(std::round(eps * N)); // initial infectious
@@ -42,28 +44,36 @@ Vessel seihr(uint32_t N, SystemState& state) {
 }
 
 int main() {
-    uint32_t population = 1000000; // Example population size
-    SystemState state;
+    uint32_t population = 10000; // Example population size
+
+    auto state = std::make_shared<SystemState>();
     Vessel v = seihr(population, state);
 
     std::cerr << "Initial state: " << std::endl;
-    state.prettyPrint();
+    state->prettyPrint();
 
     Simulator simulator(v, state, 100.0); // Run simulation for 100 time units
-    simulator.run();
 
-    std::cerr << "Final state: " << std::endl;
-    state.prettyPrint();
+    std::vector<int> peakValues;
+    simulator.run(); // Run 100 parallel simulations
+
+    // Calculate the average peak value of the hospitalized population
+    double averagePeak = std::accumulate(peakValues.begin(), peakValues.end(), 0.0) / peakValues.size();
+    std::cout << "Average peak value of hospitalized population: " << averagePeak << std::endl;
 
     // Collect and plot the results using matplotlib
-    const auto& results = state.getTrajectory();
-    const auto& timePoints = state.getTimePoints();
+    const auto& results = state->getTrajectory();
+    const auto& timePoints = state->getTimePoints();
 
     for (const auto& species : v.getSpecies()) {
         plt::named_plot(species.getName(), timePoints, results.at(species.getName()));
     }
     plt::legend();
     plt::show();
+
+    // Generate the graph visualization
+    GraphVisualizer gv(v.getSpecies(), v.getReactions());
+    gv.generateGraph("reaction_graph.png");
 
     return 0;
 }

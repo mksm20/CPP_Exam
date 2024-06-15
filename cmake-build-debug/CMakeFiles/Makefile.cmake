@@ -25,6 +25,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/share/cmake-3.30/Modules/Compiler/GNU.cmake"
   "/usr/local/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/local/share/cmake-3.30/Modules/FindPackageMessage.cmake"
+  "/usr/local/share/cmake-3.30/Modules/FindPkgConfig.cmake"
   "/usr/local/share/cmake-3.30/Modules/FindPython/Support.cmake"
   "/usr/local/share/cmake-3.30/Modules/FindPython3.cmake"
   "/usr/local/share/cmake-3.30/Modules/Platform/Linux-GNU-C.cmake"

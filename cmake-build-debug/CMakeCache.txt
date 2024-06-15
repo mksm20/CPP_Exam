@@ -230,6 +230,12 @@ Exam_Lib_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Exam_Lib_SOURCE_DIR:STATIC=/home/martinmortensen/CLionProjects/Exam_Lib
 
+//Arguments to supply to pkg-config
+PKG_CONFIG_ARGN:STRING=
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //Automatically copy dependencies into the output directory for
 // executables.
 VCPKG_APPLOCAL_DEPS:BOOL=ON
@@ -275,6 +281,15 @@ Z_VCPKG_CL:FILEPATH=Z_VCPKG_CL-NOTFOUND
 //The directory which contains the installed libraries for each
 // triplet
 _VCPKG_INSTALLED_DIR:PATH=/home/martinmortensen/.vcpkg-clion/vcpkg/installed
+
+//Path to a library.
+pkgcfg_lib_GRAPHVIZ_cdt:FILEPATH=/usr/lib/x86_64-linux-gnu/libcdt.so
+
+//Path to a library.
+pkgcfg_lib_GRAPHVIZ_cgraph:FILEPATH=/usr/lib/x86_64-linux-gnu/libcgraph.so
+
+//Path to a library.
+pkgcfg_lib_GRAPHVIZ_gvc:FILEPATH=/usr/lib/x86_64-linux-gnu/libgvc.so
 
 
 ########################
@@ -430,8 +445,49 @@ CMAKE_TOOLCHAIN_FILE-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.2()]
 //Details about finding Python3
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/usr/bin/python3.10][/usr/include/python3.10][/usr/lib/x86_64-linux-gnu/libpython3.10.so][cfound components: Interpreter Development Development.Module Development.Embed ][v3.10.12()]
+GRAPHVIZ_CFLAGS:INTERNAL=-I/usr/include/graphviz
+GRAPHVIZ_CFLAGS_I:INTERNAL=
+GRAPHVIZ_CFLAGS_OTHER:INTERNAL=
+GRAPHVIZ_FOUND:INTERNAL=1
+GRAPHVIZ_INCLUDEDIR:INTERNAL=/usr/include/graphviz
+GRAPHVIZ_INCLUDE_DIRS:INTERNAL=/usr/include/graphviz
+GRAPHVIZ_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgvc;-lcgraph;-lcdt
+GRAPHVIZ_LDFLAGS_OTHER:INTERNAL=
+GRAPHVIZ_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+GRAPHVIZ_LIBRARIES:INTERNAL=gvc;cgraph;cdt
+GRAPHVIZ_LIBRARY_DIRS:INTERNAL=/usr/lib/x86_64-linux-gnu
+GRAPHVIZ_LIBS:INTERNAL=
+GRAPHVIZ_LIBS_L:INTERNAL=
+GRAPHVIZ_LIBS_OTHER:INTERNAL=
+GRAPHVIZ_LIBS_PATHS:INTERNAL=
+GRAPHVIZ_MODULE_NAME:INTERNAL=libgvc
+GRAPHVIZ_PREFIX:INTERNAL=/usr
+GRAPHVIZ_STATIC_CFLAGS:INTERNAL=-I/usr/include/graphviz
+GRAPHVIZ_STATIC_CFLAGS_I:INTERNAL=
+GRAPHVIZ_STATIC_CFLAGS_OTHER:INTERNAL=
+GRAPHVIZ_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/graphviz
+GRAPHVIZ_STATIC_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgvc;-lcgraph;-lcdt
+GRAPHVIZ_STATIC_LDFLAGS_OTHER:INTERNAL=
+GRAPHVIZ_STATIC_LIBDIR:INTERNAL=
+GRAPHVIZ_STATIC_LIBRARIES:INTERNAL=gvc;cgraph;cdt
+GRAPHVIZ_STATIC_LIBRARY_DIRS:INTERNAL=/usr/lib/x86_64-linux-gnu
+GRAPHVIZ_STATIC_LIBS:INTERNAL=
+GRAPHVIZ_STATIC_LIBS_L:INTERNAL=
+GRAPHVIZ_STATIC_LIBS_OTHER:INTERNAL=
+GRAPHVIZ_STATIC_LIBS_PATHS:INTERNAL=
+GRAPHVIZ_VERSION:INTERNAL=2.43.0
+GRAPHVIZ_libgvc_INCLUDEDIR:INTERNAL=
+GRAPHVIZ_libgvc_LIBDIR:INTERNAL=
+GRAPHVIZ_libgvc_PREFIX:INTERNAL=
+GRAPHVIZ_libgvc_VERSION:INTERNAL=
+//ADVANCED property for variable: PKG_CONFIG_ARGN
+PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //Install the dependencies listed in your manifest:
 //\n    If this is off, you will have to manually install your dependencies.
 //\n    See https://github.com/microsoft/vcpkg/tree/master/docs/specifications/manifests.md
@@ -465,4 +521,13 @@ _Python3_Interpreter_REASON_FAILURE:INTERNAL=
 _Python3_LIBRARY_RELEASE:INTERNAL=/usr/lib/x86_64-linux-gnu/libpython3.10.so
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=
+__pkg_config_arguments_GRAPHVIZ:INTERNAL=REQUIRED;libgvc
+__pkg_config_checked_GRAPHVIZ:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_GRAPHVIZ_cdt
+pkgcfg_lib_GRAPHVIZ_cdt-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_GRAPHVIZ_cgraph
+pkgcfg_lib_GRAPHVIZ_cgraph-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_GRAPHVIZ_gvc
+pkgcfg_lib_GRAPHVIZ_gvc-ADVANCED:INTERNAL=1
+prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
 

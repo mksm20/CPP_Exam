@@ -139,24 +139,10 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Exam_Lib.dir/Simulator.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/martinmortensen/CLionProjects/Exam_Lib/Simulator.cpp -o CMakeFiles/Exam_Lib.dir/Simulator.cpp.s
 
-CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o: CMakeFiles/Exam_Lib.dir/flags.make
-CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.cpp
-CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o: CMakeFiles/Exam_Lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o -MF CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o.d -o CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o -c /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.cpp
-
-CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.cpp > CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.i
-
-CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.cpp -o CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.s
-
 CMakeFiles/Exam_Lib.dir/Vessel.cpp.o: CMakeFiles/Exam_Lib.dir/flags.make
 CMakeFiles/Exam_Lib.dir/Vessel.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib/Vessel.cpp
 CMakeFiles/Exam_Lib.dir/Vessel.cpp.o: CMakeFiles/Exam_Lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Exam_Lib.dir/Vessel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Exam_Lib.dir/Vessel.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Exam_Lib.dir/Vessel.cpp.o -MF CMakeFiles/Exam_Lib.dir/Vessel.cpp.o.d -o CMakeFiles/Exam_Lib.dir/Vessel.cpp.o -c /home/martinmortensen/CLionProjects/Exam_Lib/Vessel.cpp
 
 CMakeFiles/Exam_Lib.dir/Vessel.cpp.i: cmake_force
@@ -167,6 +153,20 @@ CMakeFiles/Exam_Lib.dir/Vessel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Exam_Lib.dir/Vessel.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/martinmortensen/CLionProjects/Exam_Lib/Vessel.cpp -o CMakeFiles/Exam_Lib.dir/Vessel.cpp.s
 
+CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: CMakeFiles/Exam_Lib.dir/flags.make
+CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp
+CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: CMakeFiles/Exam_Lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o -MF CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o.d -o CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o -c /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp
+
+CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp > CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.i
+
+CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp -o CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.s
+
 # Object files for target Exam_Lib
 Exam_Lib_OBJECTS = \
 "CMakeFiles/Exam_Lib.dir/main.cpp.o" \
@@ -174,8 +174,8 @@ Exam_Lib_OBJECTS = \
 "CMakeFiles/Exam_Lib.dir/Reaction.cpp.o" \
 "CMakeFiles/Exam_Lib.dir/SystemState.cpp.o" \
 "CMakeFiles/Exam_Lib.dir/Simulator.cpp.o" \
-"CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o" \
-"CMakeFiles/Exam_Lib.dir/Vessel.cpp.o"
+"CMakeFiles/Exam_Lib.dir/Vessel.cpp.o" \
+"CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o"
 
 # External object files for target Exam_Lib
 Exam_Lib_EXTERNAL_OBJECTS =
@@ -185,8 +185,8 @@ Exam_Lib: CMakeFiles/Exam_Lib.dir/Species.cpp.o
 Exam_Lib: CMakeFiles/Exam_Lib.dir/Reaction.cpp.o
 Exam_Lib: CMakeFiles/Exam_Lib.dir/SystemState.cpp.o
 Exam_Lib: CMakeFiles/Exam_Lib.dir/Simulator.cpp.o
-Exam_Lib: CMakeFiles/Exam_Lib.dir/SymbolTable.cpp.o
 Exam_Lib: CMakeFiles/Exam_Lib.dir/Vessel.cpp.o
+Exam_Lib: CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o
 Exam_Lib: CMakeFiles/Exam_Lib.dir/build.make
 Exam_Lib: /usr/lib/x86_64-linux-gnu/libpython3.10.so
 Exam_Lib: CMakeFiles/Exam_Lib.dir/link.txt
