@@ -11,10 +11,17 @@ public:
     void add(const Key& key, const Value& value);
     void update(const Key& key, const Value& value);
     const Value& lookup(const Key& key) const;
-
+    const std::map<Key, Value>& getTable() const;
 private:
     std::map<Key, Value> table;
 };
+
+
+template<typename Key, typename Value>
+const std::map<Key, Value>& SymbolTable<Key, Value>::getTable() const {
+    return table;
+}
+
 
 template<typename Key, typename Value>
 void SymbolTable<Key, Value>::add(const Key& key, const Value& value) {

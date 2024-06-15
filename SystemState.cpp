@@ -2,52 +2,42 @@
 #include <iostream>
 namespace sim {
     void SystemState::addSpecies(const Species& species) {
-        speciesTable.add(species.getName(), species.getCount());
-        state[species.getName()] = species.getCount();
-        std::cerr << "Added species " << species.getName() << " with count " << species.getCount() << std::endl;
-    }
-
-    void SystemState::ensureSpecies(const Species& species) {
-        try {
-            speciesTable.lookup(species.getName());
-        } catch (const std::runtime_error&) {
-            addSpecies(species);
-        }
+        stateTable.add(species.getName(), species.getCount());
     }
 
     int SystemState::getCount(const std::string& species) const {
-        return speciesTable.lookup(species);
+        return stateTable.lookup(species);
     }
 
     void SystemState::updateCount(const std::string& species, int count) {
-        if (state.find(species) == state.end()) {
-            throw std::runtime_error("Species not found in state");
-        }
-        speciesTable.update(species, count); // Update the symbol table
-        state[species] = count;
-        //std::cerr << "Updated " << species << " to count " << count << std::endl;
+        stateTable.update(species, count);
+    }
+
+    void SystemState::removeSpecies(const std::string& species, int count) {
+        int currentCount = stateTable.lookup(species);
+        currentCount -= count;
+        if (currentCount < 0) currentCount = 0;
+        stateTable.update(species, currentCount);
     }
 
     void SystemState::prettyPrint() const {
-        for (const auto& [name, count] : state) {
+        for (const auto& [name, count] : stateTable.getTable()) {
             std::cout << name << ": " << count << std::endl;
         }
     }
 
     const std::map<std::string, int>& SystemState::getState() const {
-        return state;
+        return stateTable.getTable();
     }
 
     std::map<std::string, int>& SystemState::getState() {
-        return state;
+        return const_cast<std::map<std::string, int> &>(stateTable.getTable());
     }
 
     void SystemState::recordState(double time) {
         timePoints.push_back(time);
-        //std::cerr << "Recording state at time " << time << std::endl;
-        for (const auto& [name, count] : state) {
+        for (const auto& [name, count] : stateTable.getTable()) {
             trajectory[name].push_back(count);
-            //std::cerr << "  " << name << ": " << count << std::endl;
         }
     }
 
@@ -58,4 +48,5 @@ namespace sim {
     const std::vector<double>& SystemState::getTimePoints() const {
         return timePoints;
     }
+
 }

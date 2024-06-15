@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include "Species.h"
+#include "SystemState.h"
 
 namespace sim {
 
@@ -16,13 +17,20 @@ namespace sim {
     public:
         Reaction(const std::vector<std::string>& inputs, const std::vector<std::string>& outputs, double rate);
         double calculateDelay(const std::map<std::string, int>& state) const;
-        void execute(std::map<std::string, int>& state) const;
+        void execute(std::map<std::string, int>& state, SystemState& fullState) const;
+        void executeForEnvironment(SystemState& state) const;
 
         // Overloaded >>= operator for reaction rate
         Reaction operator>>=(double rate) const;
         Reaction operator>>=(const Species& output) const;
         Reaction operator>>=(const CombinedSpecies& outputs) const;
+        // Overloaded >> operator for reaction process
+        friend Reaction operator>>(const Species& input, const Species& output);
+        friend Reaction operator>>(const std::vector<Species>& inputs, const Species& output);
 
+        // Overloaded >> operator for reaction rate
+        friend Reaction operator>>(const Species& input, double rate);
+        friend Reaction operator>>(const std::vector<Species>& inputs, double rate);
         // Getters for inputs and outputs
         const std::vector<std::string>& getInputs() const;
         const std::vector<std::string>& getOutputs() const;

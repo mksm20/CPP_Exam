@@ -5,6 +5,8 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Reaction.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Species.h \
+  /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.h \
+  /home/martinmortensen/CLionProjects/Exam_Lib/SystemState.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -21,9 +23,11 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /usr/include/c++/11/bits/concept_check.h \
   /usr/include/c++/11/bits/cpp_type_traits.h \
   /usr/include/c++/11/bits/cxxabi_forced.h \
+  /usr/include/c++/11/bits/cxxabi_init_exception.h \
   /usr/include/c++/11/bits/erase_if.h \
   /usr/include/c++/11/bits/exception.h \
   /usr/include/c++/11/bits/exception_defines.h \
+  /usr/include/c++/11/bits/exception_ptr.h \
   /usr/include/c++/11/bits/functexcept.h \
   /usr/include/c++/11/bits/functional_hash.h \
   /usr/include/c++/11/bits/hash_bytes.h \
@@ -33,6 +37,7 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /usr/include/c++/11/bits/max_size_type.h \
   /usr/include/c++/11/bits/memoryfwd.h \
   /usr/include/c++/11/bits/move.h \
+  /usr/include/c++/11/bits/nested_exception.h \
   /usr/include/c++/11/bits/node_handle.h \
   /usr/include/c++/11/bits/ostream_insert.h \
   /usr/include/c++/11/bits/postypes.h \
@@ -77,6 +82,7 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /usr/include/c++/11/cwchar \
   /usr/include/c++/11/debug/assertions.h \
   /usr/include/c++/11/debug/debug.h \
+  /usr/include/c++/11/exception \
   /usr/include/c++/11/ext/aligned_buffer.h \
   /usr/include/c++/11/ext/alloc_traits.h \
   /usr/include/c++/11/ext/atomicity.h \
@@ -92,6 +98,7 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /usr/include/c++/11/new \
   /usr/include/c++/11/numbers \
   /usr/include/c++/11/pstl/pstl_config.h \
+  /usr/include/c++/11/stdexcept \
   /usr/include/c++/11/string \
   /usr/include/c++/11/string_view \
   /usr/include/c++/11/tr1/bessel_function.tcc \
@@ -108,6 +115,7 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
   /usr/include/c++/11/tr1/special_function_util.h \
   /usr/include/c++/11/tuple \
   /usr/include/c++/11/type_traits \
+  /usr/include/c++/11/typeinfo \
   /usr/include/c++/11/utility \
   /usr/include/c++/11/vector \
   /usr/include/ctype.h \
@@ -269,6 +277,8 @@ CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o: /home/martinmortensen/CLionProjec
 CMakeFiles/Exam_Lib.dir/Reaction.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib/Reaction.cpp \
   /home/martinmortensen/CLionProjects/Exam_Lib/Reaction.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Species.h \
+  /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.h \
+  /home/martinmortensen/CLionProjects/Exam_Lib/SystemState.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -561,7 +571,6 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: /home/martinmortensen/CLionProjects/Exa
   /usr/include/c++/11/bits/hashtable_policy.h \
   /usr/include/c++/11/bits/invoke.h \
   /usr/include/c++/11/bits/ios_base.h \
-  /usr/include/c++/11/bits/istream.tcc \
   /usr/include/c++/11/bits/iterator_concepts.h \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/bits/locale_classes.tcc \
@@ -656,8 +665,6 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: /home/martinmortensen/CLionProjects/Exa
   /usr/include/c++/11/initializer_list \
   /usr/include/c++/11/ios \
   /usr/include/c++/11/iosfwd \
-  /usr/include/c++/11/iostream \
-  /usr/include/c++/11/istream \
   /usr/include/c++/11/iterator \
   /usr/include/c++/11/limits \
   /usr/include/c++/11/map \
@@ -1464,6 +1471,7 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
   /home/martinmortensen/.local/lib/python3.10/site-packages/numpy/core/include/numpy/npy_interrupt.h \
   /home/martinmortensen/.local/lib/python3.10/site-packages/numpy/core/include/numpy/numpyconfig.h \
   /home/martinmortensen/.local/lib/python3.10/site-packages/numpy/core/include/numpy/utils.h \
+  /home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Observer.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Reaction.h \
   /home/martinmortensen/CLionProjects/Exam_Lib/Simulator.h \
@@ -1661,6 +1669,17 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/graphviz/arith.h \
+  /usr/include/graphviz/cdt.h \
+  /usr/include/graphviz/cgraph.h \
+  /usr/include/graphviz/geom.h \
+  /usr/include/graphviz/gvc.h \
+  /usr/include/graphviz/gvcext.h \
+  /usr/include/graphviz/gvplugin.h \
+  /usr/include/graphviz/pathgeom.h \
+  /usr/include/graphviz/textspan.h \
+  /usr/include/graphviz/types.h \
+  /usr/include/graphviz/usershape.h \
   /usr/include/inttypes.h \
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
@@ -2154,8 +2173,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/algorithm:
 
-/home/martinmortensen/CLionProjects/Exam_Lib/SystemState.h:
-
 /home/martinmortensen/CLionProjects/Exam_Lib/Simulator.h:
 
 /home/martinmortensen/CLionProjects/Exam_Lib/Simulator.cpp:
@@ -2174,10 +2191,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/streambuf:
 
-/usr/include/c++/11/pstl/glue_algorithm_defs.h:
-
-/usr/include/c++/11/stdexcept:
-
 /usr/include/c++/11/random:
 
 /usr/include/c++/11/ostream:
@@ -2185,8 +2198,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/c++/11/numeric:
 
 /usr/include/c++/11/istream:
-
-/usr/include/c++/11/exception:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
 
@@ -2202,8 +2213,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/bits/ostream.tcc:
 
-/usr/include/c++/11/bits/nested_exception.h:
-
 /usr/include/c++/11/bits/locale_classes.tcc:
 
 /usr/include/c++/11/bits/locale_classes.h:
@@ -2211,8 +2220,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/python3.10/cpython/object.h:
 
 /usr/include/c++/11/bits/istream.tcc:
-
-/usr/include/c++/11/bits/exception_ptr.h:
 
 /usr/include/python3.10/structseq.h:
 
@@ -2234,11 +2241,17 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/x86_64-linux-gnu/sys/ucontext.h:
 
-/usr/include/graphviz/pathgeom.h:
+/usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/include/graphviz/gvcext.h:
+/usr/include/python3.10/pyhash.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/python3.10/warnings.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
 
@@ -2268,6 +2281,12 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
+/home/martinmortensen/.local/lib/python3.10/site-packages/numpy/core/include/numpy/_numpyconfig.h:
+
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+
+/usr/include/c++/11/type_traits:
+
 /usr/include/python3.10/genericaliasobject.h:
 
 /usr/include/syscall.h:
@@ -2279,6 +2298,10 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/c++/11/tr1/hypergeometric.tcc:
 
 /usr/include/c++/11/bits/localefwd.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/11/tr1/gamma.tcc:
 
 /usr/include/python3.10/cpython/fileutils.h:
 
@@ -2310,6 +2333,8 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/iosfwd:
 
+/usr/include/c++/11/exception:
+
 /usr/include/c++/11/math.h:
 
 /usr/include/python3.10/bytesobject.h:
@@ -2328,8 +2353,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/linux/close_range.h:
 
-/usr/include/c++/11/cwchar:
-
 /home/martinmortensen/CLionProjects/Exam_Lib/Observer.h:
 
 /usr/include/c++/11/cstdio:
@@ -2345,8 +2368,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/x86_64-linux-gnu/asm/unistd.h:
 
 /usr/include/c++/11/cctype:
-
-/usr/include/inttypes.h:
 
 /usr/include/c++/11/bits/vector.tcc:
 
@@ -2378,15 +2399,15 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/numbers:
 
-/usr/include/features.h:
+/usr/include/python3.10/ceval.h:
 
-/usr/include/c++/11/bits/stl_multimap.h:
+/usr/include/c++/11/bits/stl_vector.h:
 
-/usr/include/c++/11/bits/iterator_concepts.h:
+/home/martinmortensen/CLionProjects/Exam_Lib/SystemState.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+/usr/include/c++/11/bits/std_function.h:
 
-/usr/include/c++/11/bits/ostream_insert.h:
+/usr/include/c++/11/bits/stl_tempbuf.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
 
@@ -2412,43 +2433,33 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/asm-generic/errno-base.h:
 
-/usr/include/python3.10/ceval.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
-/usr/include/c++/11/bits/stl_vector.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h:
-
-/usr/include/c++/11/bits/shared_ptr_base.h:
-
-/usr/include/linux/limits.h:
-
-/usr/include/c++/11/bits/basic_string.h:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/c++/11/limits:
-
-/home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+/usr/include/c++/11/pstl/pstl_config.h:
 
 /usr/include/c++/11/bits/cxxabi_init_exception.h:
 
 /home/martinmortensen/CLionProjects/Exam_Lib/Species.h:
 
-/usr/include/python3.10/pymath.h:
+/usr/include/c++/11/bits/allocator.h:
 
-/usr/include/c++/11/bits/invoke.h:
+/usr/include/c++/11/cmath:
 
-/usr/include/c++/11/pstl/execution_defs.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
 
-/usr/include/c++/11/bits/algorithmfwd.h:
+/usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/11/bits/exception_ptr.h:
+
+/usr/include/python3.10/object.h:
+
+/usr/include/python3.10/cpython/bytearrayobject.h:
+
+/usr/include/c++/11/bits/atomic_futex.h:
+
+/usr/include/c++/11/ext/string_conversions.h:
 
 /usr/include/python3.10/pymem.h:
 
@@ -2464,17 +2475,17 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/bits/ranges_cmp.h:
 
-/usr/include/python3.10/cpython/ceval.h:
+/usr/include/c++/11/pstl/glue_algorithm_defs.h:
 
-/usr/include/stdint.h:
-
-/usr/include/endian.h:
-
-/usr/include/c++/11/bits/erase_if.h:
-
-/usr/include/c++/11/bits/ptr_traits.h:
+/usr/include/c++/11/stdexcept:
 
 /usr/include/x86_64-linux-gnu/bits/sigevent-consts.h:
+
+/usr/include/c++/11/bits/ranges_base.h:
+
+/usr/include/c++/11/bits/stl_heap.h:
+
+/usr/include/c++/11/bits/std_abs.h:
 
 /usr/include/alloca.h:
 
@@ -2492,15 +2503,25 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/x86_64-linux-gnu/bits/sigaction.h:
 
-/usr/include/c++/11/ext/numeric_traits.h:
+/usr/include/c++/11/cwchar:
 
-/home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.h:
+/usr/include/c++/11/limits:
 
-/usr/include/c++/11/bits/ranges_base.h:
+/home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.cpp:
 
-/usr/include/c++/11/bits/stl_heap.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
-/usr/include/c++/11/bits/std_abs.h:
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/c++/11/bits/ostream_insert.h:
+
+/usr/include/c++/11/compare:
+
+/usr/include/c++/11/bits/memoryfwd.h:
+
+/usr/include/c++/11/bits/stl_function.h:
 
 /usr/include/c++/11/tr1/beta_function.tcc:
 
@@ -2514,29 +2535,41 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/c++/11/bits/max_size_type.h:
 
-/usr/include/c++/11/compare:
+/usr/include/c++/11/pstl/execution_defs.h:
 
-/usr/include/c++/11/bits/memoryfwd.h:
+/usr/include/c++/11/bits/algorithmfwd.h:
 
-/usr/include/c++/11/bits/stl_function.h:
+/usr/include/python3.10/pymath.h:
 
-/usr/include/c++/11/pstl/pstl_config.h:
+/usr/include/c++/11/bits/invoke.h:
 
-/usr/include/c++/11/cmath:
+/usr/include/c++/11/bits/stl_multimap.h:
 
-/usr/include/c++/11/bits/allocator.h:
+/usr/include/features.h:
 
-/home/martinmortensen/.local/lib/python3.10/site-packages/numpy/core/include/numpy/_numpyconfig.h:
+/home/martinmortensen/CLionProjects/Exam_Lib/GraphVisualizer.h:
 
-/usr/include/c++/11/type_traits:
+/usr/include/c++/11/ext/numeric_traits.h:
 
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+/usr/include/c++/11/stop_token:
 
-/usr/include/graphviz/gvplugin.h:
+/usr/include/c++/11/bits/postypes.h:
 
-/usr/include/c++/11/tr1/modified_bessel_func.tcc:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
+/usr/include/c++/11/bits/iterator_concepts.h:
+
+/usr/include/python3.10/longintrepr.h:
+
+/usr/include/c++/11/bits/hash_bytes.h:
+
+/usr/include/c++/11/bits/move.h:
+
+/usr/include/python3.10/pycapsule.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/c++/11/bits/nested_exception.h:
 
 /usr/include/c++/11/iostream:
 
@@ -2547,20 +2580,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/c++/11/typeinfo:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
-/usr/include/c++/11/climits:
-
-/usr/include/c++/11/new:
-
-/usr/include/graphviz/types.h:
-
-/usr/include/python3.10/object.h:
-
-/usr/include/python3.10/cpython/bytearrayobject.h:
-
-/usr/include/c++/11/bits/atomic_futex.h:
-
-/usr/include/c++/11/ext/string_conversions.h:
 
 /usr/include/c++/11/bits/locale_facets.h:
 
@@ -2573,6 +2592,32 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/c++/11/bits/stl_algo.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
+/usr/include/ctype.h:
+
+/usr/include/c++/11/ext/new_allocator.h:
+
+/usr/include/python3.10/patchlevel.h:
+
+/usr/include/python3.10/objimpl.h:
+
+/usr/include/python3.10/funcobject.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigcontext.h:
+
+/usr/include/c++/11/bits/ranges_uninitialized.h:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/c++/11/bits/stl_uninitialized.h:
+
+/usr/include/c++/11/bits/std_thread.h:
+
+/usr/include/graphviz/cgraph.h:
+
+/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/11/bits/cpp_type_traits.h:
 
 /usr/include/pthread.h:
 
@@ -2592,49 +2637,43 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
-/usr/include/python3.10/longintrepr.h:
+/usr/include/graphviz/gvcext.h:
 
-/usr/include/c++/11/bits/hash_bytes.h:
+/usr/include/c++/11/bits/shared_ptr_base.h:
 
-/usr/include/c++/11/bits/move.h:
+/usr/include/c++/11/bits/basic_string.h:
 
-/usr/include/python3.10/pycapsule.h:
+/usr/include/linux/limits.h:
 
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+/usr/include/python3.10/cpython/ceval.h:
 
-/usr/include/limits.h:
+/usr/include/endian.h:
+
+/usr/include/c++/11/bits/erase_if.h:
+
+/usr/include/c++/11/bits/ptr_traits.h:
+
+/usr/include/stdint.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/c++/11/tr1/modified_bessel_func.tcc:
+
+/usr/include/graphviz/gvplugin.h:
+
+/usr/include/graphviz/pathgeom.h:
+
+/usr/include/c++/11/climits:
+
+/usr/include/c++/11/new:
+
+/usr/include/graphviz/types.h:
+
+/usr/include/inttypes.h:
 
 /usr/include/c++/11/bits/stl_relops.h:
 
-/usr/include/c++/11/bits/std_function.h:
-
-/usr/include/c++/11/bits/stl_tempbuf.h:
-
-/usr/include/ctype.h:
-
-/usr/include/c++/11/ext/new_allocator.h:
-
-/usr/include/python3.10/patchlevel.h:
-
-/usr/include/python3.10/objimpl.h:
-
-/usr/include/python3.10/funcobject.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigcontext.h:
-
-/usr/include/c++/11/bits/ranges_uninitialized.h:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/c++/11/bits/std_thread.h:
-
-/usr/include/graphviz/cgraph.h:
-
-/usr/include/c++/11/bits/cpp_type_traits.h:
-
-/usr/include/c++/11/bits/stl_iterator_base_funcs.h:
-
-/usr/include/c++/11/bits/stl_uninitialized.h:
+/usr/include/limits.h:
 
 /usr/include/c++/11/functional:
 
@@ -2688,8 +2727,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/unistd.h:
 
-/usr/include/x86_64-linux-gnu/sys/select.h:
-
 /usr/include/python3.10/unicodeobject.h:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
@@ -2721,6 +2758,12 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/python3.10/cpython/tupleobject.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
+
+/usr/include/c++/11/bits/exception_defines.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
@@ -2763,12 +2806,6 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
-
-/usr/include/c++/11/stop_token:
-
-/usr/include/c++/11/bits/postypes.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
@@ -2826,9 +2863,9 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 
 /usr/include/x86_64-linux-gnu/bits/sigthread.h:
 
-/home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.h:
-
 /usr/include/c++/11/bits/random.tcc:
+
+/home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
@@ -2919,21 +2956,3 @@ CMakeFiles/Exam_Lib.dir/main.cpp.o: /home/martinmortensen/CLionProjects/Exam_Lib
 /usr/include/python3.10/bytearrayobject.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
-
-/usr/include/python3.10/warnings.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
-
-/usr/include/c++/11/bits/exception_defines.h:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
-
-/usr/include/c++/11/tr1/gamma.tcc:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/python3.10/pyhash.h:
-
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:

@@ -13,8 +13,7 @@ namespace sim {
     class Simulator {
     public:
         Simulator(const Vessel& vessel, std::shared_ptr<SystemState> state, double endTime);
-        Simulator(Vessel vessel, SystemState state, double endTime);
-
+        Simulator(const Vessel vessel, SystemState state, double endTime, bool second_const);
         void run();
         void runParallel(int numSimulations, std::vector<int>& peakValues);
 

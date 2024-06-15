@@ -1,17 +1,15 @@
 #include "Simulator.h"
 #include <algorithm>
-#include <thread>
-#include <future>
 #include <functional>
-#include <iostream>
+#include <future>
 
 namespace sim {
 
     Simulator::Simulator(const Vessel& vessel, std::shared_ptr<SystemState> state, double endTime)
-            : vessel(vessel), reactions(vessel.getReactions()), state(state), endTime(endTime), currentTime(0) {}
+            : vessel(const_cast<Vessel &>(vessel)) , reactions(vessel.getReactions()), state(state), endTime(endTime), currentTime(0) {}
 
-    Simulator::Simulator(Vessel vessel, SystemState state, double endTime)
-            : vessel(vessel), reactions(vessel.getReactions()), state(std::make_shared<SystemState>(state)), endTime(endTime), currentTime(0) {}
+//Simulator::Simulator(Vessel vessel, SystemState state, double endTime, bool second_const)
+  //          :vessel(vessel), reactions(vessel.getReactions(), state(state)){}
 
     void Simulator::run() {
         while (currentTime < endTime) {
@@ -37,7 +35,7 @@ namespace sim {
 
         // Execute the reaction
         if (nextReaction) {
-            nextReaction->execute(state->getState());
+            nextReaction->execute(state->getState(), *state);
         }
 
         // Record the state
@@ -45,7 +43,7 @@ namespace sim {
     }
 
     int Simulator::runSingleSimulation(Vessel vessel, SystemState stateCopy) {
-        Simulator singleSimulator(vessel, stateCopy, endTime);
+        Simulator singleSimulator(vessel, std::make_shared<SystemState>(stateCopy), endTime);
         singleSimulator.run();
 
         // Find the peak value of the hospitalized population
@@ -59,7 +57,7 @@ namespace sim {
         std::vector<std::thread> threads;
         std::vector<std::future<int>> futures;
         for (int i = 0; i < numSimulations; ++i) {
-            auto stateCopy = *state; // Make a copy of the state for each thread
+            auto stateCopy = SystemState(*state); // Make a copy of the state for each thread
             auto vesselCopy = vessel; // Make a copy of the vessel for each thread
             std::promise<int> promise;
             futures.push_back(promise.get_future());

@@ -5,8 +5,9 @@ namespace sim {
     Species::Species() : name(""), count(0) {}
 
     Species::Species(const std::string& name, int initialCount)
-            : name(name), count(initialCount) {}
-
+            : name(name), count(initialCount), env(false){}
+    Species::Species(const std::string& name, int initialCount, bool env)
+            : name(name), count(initialCount), env(env) {}
     const std::string& Species::getName() const {
         return name;
     }
@@ -17,6 +18,10 @@ namespace sim {
 
     void Species::setCount(int count) {
         this->count = count;
+    }
+
+    bool Species::isEnv() const {
+        return env;
     }
 
     CombinedSpecies Species::operator+(const Species& other) const {

@@ -6,17 +6,16 @@
 #include <vector>
 #include "Species.h"
 #include "SymbolTable.h"
-
 namespace sim {
     class SystemState {
     public:
         void addSpecies(const Species &species);
 
-        void ensureSpecies(const Species &species);
-
         int getCount(const std::string &species) const;
 
         void updateCount(const std::string &species, int count);
+
+        void removeSpecies(const std::string &species, int count);
 
         void prettyPrint() const;
 
@@ -31,8 +30,7 @@ namespace sim {
         const std::vector<double> &getTimePoints() const;
 
     private:
-        SymbolTable<std::string, int> speciesTable; // Use SymbolTable to manage species counts
-        std::map<std::string, int> state; // Keeps track of the counts for compatibility
+        SymbolTable<std::string, int> stateTable;
         std::map<std::string, std::vector<int>> trajectory;
         std::vector<double> timePoints;
     };

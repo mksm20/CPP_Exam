@@ -13,9 +13,13 @@ namespace sim {
     public:
         Species();
         Species(const std::string& name, int initialCount);
+
+        Species(const std::string &name, int initialCount, bool env);
+
         const std::string& getName() const;
         int getCount() const;
         void setCount(int count);
+        bool isEnv() const;
 
         // Overloaded + operator
         CombinedSpecies operator+(const Species& other) const;
@@ -23,6 +27,7 @@ namespace sim {
     private:
         std::string name;
         int count;
+        bool env;
     };
 
     class CombinedSpecies {

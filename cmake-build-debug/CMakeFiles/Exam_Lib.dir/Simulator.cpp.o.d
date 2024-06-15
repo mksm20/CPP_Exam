@@ -232,5 +232,4 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: \
  /usr/include/c++/11/bits/unordered_map.h /usr/include/c++/11/future \
  /usr/include/c++/11/mutex /usr/include/c++/11/bits/unique_lock.h \
  /usr/include/c++/11/condition_variable \
- /usr/include/c++/11/bits/atomic_futex.h /usr/include/c++/11/iostream \
- /usr/include/c++/11/istream /usr/include/c++/11/bits/istream.tcc
+ /usr/include/c++/11/bits/atomic_futex.h

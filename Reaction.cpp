@@ -32,25 +32,25 @@ namespace sim {
         return delay;
     }
 
-    void Reaction::execute(std::map<std::string, int>& state) const {
-        //std::cerr << "Executing reaction: ";
+    void Reaction::execute(std::map<std::string, int>& state, SystemState& fullState) const {
         for (const auto& input : inputs) {
-            if (state.find(input) == state.end()) {
-                std::cerr << "Error: Key " << input << " not found in state map." << std::endl;
-                throw std::out_of_range("Key not found in state map.");
+            if (input != "env") {
+                state[input]--;
+            } else {
+                fullState.removeSpecies(input, 1);
             }
-            state[input]--;
-            ///std::cerr << "Decremented " << input << " to " << state[input] << ". ";
         }
         for (const auto& output : outputs) {
-            if (state.find(output) == state.end()) {
-                std::cerr << "Error: Key " << output << " not found in state map." << std::endl;
-                throw std::out_of_range("Key not found in state map.");
+            if (output != "env") {
+                state[output]++;
             }
-            state[output]++;
-            //std::cerr << "Incremented " << output << " to " << state[output] << ". ";
         }
-        //std::cerr << std::endl;
+    }
+
+    void Reaction::executeForEnvironment(SystemState& state) const {
+        for (const auto& input : inputs) {
+            state.removeSpecies(input, 1);
+        }
     }
 
     const std::vector<std::string>& Reaction::getInputs() const {
