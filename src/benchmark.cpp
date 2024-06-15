@@ -1,19 +1,11 @@
-#include "Species.h"
-#include "Reaction.h"
-#include "SystemState.h"
-#include "Simulator.h"
-#include "Observer.h"
-#include "Vessel.h"
-#include "GraphVisualizer.h"
-#include <vector>
 #include <iostream>
+#include <chrono>
+#include "Simulator.h"
 #include <cmath>
-#include <numeric>
-#include "matplotlib-cpp/matplotlibcpp.h"
+#include "SystemState.h"
+#include "Vessel.h"
 
-namespace plt = matplotlibcpp;
 using namespace sim;
-
 Vessel seihr(uint32_t N, std::shared_ptr<SystemState> state) {
     auto v = Vessel{"COVID19 SEIHR: " + std::to_string(N), state};
     const auto eps = 0.0009; // initial fraction of infectious
@@ -58,6 +50,7 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
     const auto thetaA = 50;
     const auto thetaR = 100;
 
+
     auto v = Vessel{"Circadian Rhythm", state};
     const auto DA = v.add("DA", 1);
     const auto D_A = v.add("D_A", 0);
@@ -82,70 +75,39 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
     v.add((A + R) >> gammaC >>= C);
     v.add(C >> deltaA >>= R);
     v.add(A >> deltaA >>= Species("env", 0, true));  // handle environment
-    v.add(R >> deltaR >>= Species("env", 0, true));  // handle environment
-    v.add(MA >> deltaMA >>= Species("env", 0, true));  // handle environment
-    v.add(MR >> deltaMR >>= Species("env", 0, true));  // handle environment
+    v.add(R >> deltaR >>= Species("env", 0, true));
+    v.add(MA >> deltaMA >>= Species("env", 0, true));
+    v.add(MR >> deltaMR >>= Species("env", 0, true));
 
     return v;
 }
+
+void benchmarkSingleCore(int numSimulations, double endTime) {
+
+    auto state = std::make_shared<sim::SystemState>();
+    sim::Vessel vessel = seihr(100000, state);
+    sim::Simulator simulator(vessel, state, endTime);
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < numSimulations; ++i) {
+        auto stateCopy = std::make_shared<sim::SystemState>(*state);
+        sim::Simulator singleSimulator(vessel, stateCopy, endTime);
+        singleSimulator.run();
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+
+    std::cout << "Time taken for " << numSimulations << " simulations on a single core: "
+              << duration.count() << " seconds." << std::endl;
+}
+
 int main() {
-    uint32_t population = 10000; // Example population size
+    int numSimulations = 10;
+    double endTime = 100.0;
 
-    // SEIHR Simulation
-    auto state_seihr = std::make_shared<SystemState>();
-    Vessel v_seihr = seihr(population, state_seihr);
-
-    std::cerr << "Initial state for SEIHR: " << std::endl;
-    state_seihr->prettyPrint();
-
-    Simulator simulator_seihr(v_seihr, state_seihr, 100.0); // Run simulation for 100 time units
-
-    std::vector<int> peakValues_seihr;
-    simulator_seihr.run();
-
-    // Calculate the average peak value of the hospitalized population for SEIHR
-    double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
-    std::cout << "Average peak value of hospitalized population (SEIHR): " << averagePeak_seihr << std::endl;
-
-    // Collect and plot the results using matplotlib for SEIHR
-    const auto& results_seihr = state_seihr->getTrajectory();
-    const auto& timePoints_seihr = state_seihr->getTimePoints();
-
-    for (const auto& species : v_seihr.getSpecies()) {
-        plt::named_plot(species.getName(), timePoints_seihr, results_seihr.at(species.getName()));
-    }
-    plt::legend();
-    plt::show();
-
-    // Generate the graph visualization for SEIHR
-    GraphVisualizer gv_seihr(v_seihr.getSpecies(), v_seihr.getReactions());
-    gv_seihr.generateGraph("seihr_graph.png");
-
-    // Circadian Rhythm Simulation
-    auto state_circadian = std::make_shared<SystemState>();
-    Vessel v_circadian = circadian_rhythm(state_circadian);
-
-    std::cerr << "Initial state for Circadian Rhythm: " << std::endl;
-    state_circadian->prettyPrint();
-
-    Simulator simulator_circadian(v_circadian, state_circadian, 100.0); // Run simulation for 100 time units
-
-    std::vector<int> peakValues_circadian;
-    simulator_circadian.run(); // Run 100 parallel simulations
-
-    // Collect and plot the results using matplotlib for Circadian Rhythm
-    const auto& results_circadian = state_circadian->getTrajectory();
-    const auto& timePoints_circadian = state_circadian->getTimePoints();
-
-    for (const auto& species : v_circadian.getSpecies()) {
-        plt::named_plot(species.getName(), timePoints_circadian, results_circadian.at(species.getName()));
-    }
-    plt::legend();
-    plt::show();
-
-    // Generate the graph visualization for Circadian Rhythm
-    GraphVisualizer gv_circadian(v_circadian.getSpecies(), v_circadian.getReactions());
-    gv_circadian.generateGraph("circadian_rhythm_graph.png");
+    benchmarkSingleCore(numSimulations, endTime);
 
     return 0;
 }

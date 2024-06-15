@@ -30,6 +30,13 @@ execute_process(
 
 # Add debugging flags
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+enable_testing()
+
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+
+
 
 # Include NumPy directory
 include_directories(${Python3_NumPy_INCLUDE_DIR})
@@ -37,15 +44,33 @@ include_directories(${Python3_NumPy_INCLUDE_DIR})
 # Add executable
 add_executable(Exam_Lib
         main.cpp
-        Species.cpp
-        Reaction.cpp
-        SystemState.cpp
-        Simulator.cpp
-        Vessel.cpp
-        Vessel.h
-        GraphVisualizer.cpp
+        ../src/Species.cpp
+        ../src/Reaction.cpp
+        ../src/SystemState.cpp
+        ../src/Simulator.cpp
+        ../src/Vessel.cpp
+        ../Vessel.h
+        ../src/GraphVisualizer.cpp
         GraphVisualizer.h
+        PeakHospitalizationObserver.h
 )
+add_executable(runUnitTests
+        ../test_main.cpp
+        ../test_symbol_table.cpp
+)
+# Benchmark executable
+add_executable(runBenchmarks
+        ../benchmark.cpp
+        ../src/Reaction.cpp
+        ../src/Species.cpp
+        ../src/SystemState.cpp
+        ../src/Simulator.cpp
+        ../src/Vessel.cpp
+)
+target_link_libraries(runBenchmarks pthread)
+target_link_libraries(runUnitTests ${GTEST_LIBRARIES} pthread)
+add_test(NAME runUnitTests COMMAND runUnitTests)
+
 
 # Link libraries
 target_link_libraries(Exam_Lib ${GRAPHVIZ_LIBRARIES})

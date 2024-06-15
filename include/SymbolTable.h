@@ -8,20 +8,21 @@
 template<typename Key, typename Value>
 class SymbolTable {
 public:
+    SymbolTable() = default;  // Default constructor
+    SymbolTable(const SymbolTable& other);  // Copy constructor
+
     void add(const Key& key, const Value& value);
     void update(const Key& key, const Value& value);
     const Value& lookup(const Key& key) const;
-    const std::map<Key, Value>& getTable() const;
+    std::map<Key, Value>& get_table();  // Non-const version
+    const std::map<Key, Value>& get_table() const;  // Const version
+
 private:
     std::map<Key, Value> table;
 };
 
-
 template<typename Key, typename Value>
-const std::map<Key, Value>& SymbolTable<Key, Value>::getTable() const {
-    return table;
-}
-
+SymbolTable<Key, Value>::SymbolTable(const SymbolTable& other) : table(other.table) {}
 
 template<typename Key, typename Value>
 void SymbolTable<Key, Value>::add(const Key& key, const Value& value) {
@@ -33,10 +34,6 @@ void SymbolTable<Key, Value>::add(const Key& key, const Value& value) {
 
 template<typename Key, typename Value>
 void SymbolTable<Key, Value>::update(const Key& key, const Value& value) {
-    auto it = table.find(key);
-    if (it == table.end()) {
-        throw std::runtime_error("Symbol not found");
-    }
     table[key] = value;
 }
 
@@ -47,6 +44,16 @@ const Value& SymbolTable<Key, Value>::lookup(const Key& key) const {
         throw std::runtime_error("Symbol not found");
     }
     return it->second;
+}
+
+template<typename Key, typename Value>
+std::map<Key, Value>& SymbolTable<Key, Value>::get_table() {
+    return table;
+}
+
+template<typename Key, typename Value>
+const std::map<Key, Value>& SymbolTable<Key, Value>::get_table() const {
+    return table;
 }
 
 #endif //EXAM_LIB_SYMBOLTABLE_H

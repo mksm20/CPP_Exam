@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debu
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -129,173 +139,286 @@ Exam_Lib/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/build
 .PHONY : Exam_Lib/fast
 
-GraphVisualizer.o: GraphVisualizer.cpp.o
-.PHONY : GraphVisualizer.o
+#=============================================================================
+# Target rules for targets named runUnitTests
+
+# Build rule for target.
+runUnitTests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 runUnitTests
+.PHONY : runUnitTests
+
+# fast build rule for target.
+runUnitTests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/build
+.PHONY : runUnitTests/fast
+
+#=============================================================================
+# Target rules for targets named runBenchmarks
+
+# Build rule for target.
+runBenchmarks: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 runBenchmarks
+.PHONY : runBenchmarks
+
+# fast build rule for target.
+runBenchmarks/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/build
+.PHONY : runBenchmarks/fast
+
+src/GraphVisualizer.o: src/GraphVisualizer.cpp.o
+.PHONY : src/GraphVisualizer.o
 
 # target to build an object file
-GraphVisualizer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.o
-.PHONY : GraphVisualizer.cpp.o
+src/GraphVisualizer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/GraphVisualizer.cpp.o
+.PHONY : src/GraphVisualizer.cpp.o
 
-GraphVisualizer.i: GraphVisualizer.cpp.i
-.PHONY : GraphVisualizer.i
+src/GraphVisualizer.i: src/GraphVisualizer.cpp.i
+.PHONY : src/GraphVisualizer.i
 
 # target to preprocess a source file
-GraphVisualizer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.i
-.PHONY : GraphVisualizer.cpp.i
+src/GraphVisualizer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/GraphVisualizer.cpp.i
+.PHONY : src/GraphVisualizer.cpp.i
 
-GraphVisualizer.s: GraphVisualizer.cpp.s
-.PHONY : GraphVisualizer.s
+src/GraphVisualizer.s: src/GraphVisualizer.cpp.s
+.PHONY : src/GraphVisualizer.s
 
 # target to generate assembly for a file
-GraphVisualizer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/GraphVisualizer.cpp.s
-.PHONY : GraphVisualizer.cpp.s
+src/GraphVisualizer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/GraphVisualizer.cpp.s
+.PHONY : src/GraphVisualizer.cpp.s
 
-Reaction.o: Reaction.cpp.o
-.PHONY : Reaction.o
+src/Reaction.o: src/Reaction.cpp.o
+.PHONY : src/Reaction.o
 
 # target to build an object file
-Reaction.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Reaction.cpp.o
-.PHONY : Reaction.cpp.o
+src/Reaction.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Reaction.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Reaction.cpp.o
+.PHONY : src/Reaction.cpp.o
 
-Reaction.i: Reaction.cpp.i
-.PHONY : Reaction.i
+src/Reaction.i: src/Reaction.cpp.i
+.PHONY : src/Reaction.i
 
 # target to preprocess a source file
-Reaction.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Reaction.cpp.i
-.PHONY : Reaction.cpp.i
+src/Reaction.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Reaction.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Reaction.cpp.i
+.PHONY : src/Reaction.cpp.i
 
-Reaction.s: Reaction.cpp.s
-.PHONY : Reaction.s
+src/Reaction.s: src/Reaction.cpp.s
+.PHONY : src/Reaction.s
 
 # target to generate assembly for a file
-Reaction.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Reaction.cpp.s
-.PHONY : Reaction.cpp.s
+src/Reaction.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Reaction.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Reaction.cpp.s
+.PHONY : src/Reaction.cpp.s
 
-Simulator.o: Simulator.cpp.o
-.PHONY : Simulator.o
+src/Simulator.o: src/Simulator.cpp.o
+.PHONY : src/Simulator.o
 
 # target to build an object file
-Simulator.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Simulator.cpp.o
-.PHONY : Simulator.cpp.o
+src/Simulator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Simulator.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Simulator.cpp.o
+.PHONY : src/Simulator.cpp.o
 
-Simulator.i: Simulator.cpp.i
-.PHONY : Simulator.i
+src/Simulator.i: src/Simulator.cpp.i
+.PHONY : src/Simulator.i
 
 # target to preprocess a source file
-Simulator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Simulator.cpp.i
-.PHONY : Simulator.cpp.i
+src/Simulator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Simulator.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Simulator.cpp.i
+.PHONY : src/Simulator.cpp.i
 
-Simulator.s: Simulator.cpp.s
-.PHONY : Simulator.s
+src/Simulator.s: src/Simulator.cpp.s
+.PHONY : src/Simulator.s
 
 # target to generate assembly for a file
-Simulator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Simulator.cpp.s
-.PHONY : Simulator.cpp.s
+src/Simulator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Simulator.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Simulator.cpp.s
+.PHONY : src/Simulator.cpp.s
 
-Species.o: Species.cpp.o
-.PHONY : Species.o
+src/Species.o: src/Species.cpp.o
+.PHONY : src/Species.o
 
 # target to build an object file
-Species.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Species.cpp.o
-.PHONY : Species.cpp.o
+src/Species.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Species.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Species.cpp.o
+.PHONY : src/Species.cpp.o
 
-Species.i: Species.cpp.i
-.PHONY : Species.i
+src/Species.i: src/Species.cpp.i
+.PHONY : src/Species.i
 
 # target to preprocess a source file
-Species.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Species.cpp.i
-.PHONY : Species.cpp.i
+src/Species.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Species.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Species.cpp.i
+.PHONY : src/Species.cpp.i
 
-Species.s: Species.cpp.s
-.PHONY : Species.s
+src/Species.s: src/Species.cpp.s
+.PHONY : src/Species.s
 
 # target to generate assembly for a file
-Species.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Species.cpp.s
-.PHONY : Species.cpp.s
+src/Species.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Species.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Species.cpp.s
+.PHONY : src/Species.cpp.s
 
-SystemState.o: SystemState.cpp.o
-.PHONY : SystemState.o
+src/SystemState.o: src/SystemState.cpp.o
+.PHONY : src/SystemState.o
 
 # target to build an object file
-SystemState.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SystemState.cpp.o
-.PHONY : SystemState.cpp.o
+src/SystemState.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/SystemState.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/SystemState.cpp.o
+.PHONY : src/SystemState.cpp.o
 
-SystemState.i: SystemState.cpp.i
-.PHONY : SystemState.i
+src/SystemState.i: src/SystemState.cpp.i
+.PHONY : src/SystemState.i
 
 # target to preprocess a source file
-SystemState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SystemState.cpp.i
-.PHONY : SystemState.cpp.i
+src/SystemState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/SystemState.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/SystemState.cpp.i
+.PHONY : src/SystemState.cpp.i
 
-SystemState.s: SystemState.cpp.s
-.PHONY : SystemState.s
+src/SystemState.s: src/SystemState.cpp.s
+.PHONY : src/SystemState.s
 
 # target to generate assembly for a file
-SystemState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/SystemState.cpp.s
-.PHONY : SystemState.cpp.s
+src/SystemState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/SystemState.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/SystemState.cpp.s
+.PHONY : src/SystemState.cpp.s
 
-Vessel.o: Vessel.cpp.o
-.PHONY : Vessel.o
+src/Vessel.o: src/Vessel.cpp.o
+.PHONY : src/Vessel.o
 
 # target to build an object file
-Vessel.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.o
-.PHONY : Vessel.cpp.o
+src/Vessel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Vessel.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Vessel.cpp.o
+.PHONY : src/Vessel.cpp.o
 
-Vessel.i: Vessel.cpp.i
-.PHONY : Vessel.i
+src/Vessel.i: src/Vessel.cpp.i
+.PHONY : src/Vessel.i
 
 # target to preprocess a source file
-Vessel.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.i
-.PHONY : Vessel.cpp.i
+src/Vessel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Vessel.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Vessel.cpp.i
+.PHONY : src/Vessel.cpp.i
 
-Vessel.s: Vessel.cpp.s
-.PHONY : Vessel.s
+src/Vessel.s: src/Vessel.cpp.s
+.PHONY : src/Vessel.s
 
 # target to generate assembly for a file
-Vessel.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/Vessel.cpp.s
-.PHONY : Vessel.cpp.s
+src/Vessel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/Vessel.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/Vessel.cpp.s
+.PHONY : src/Vessel.cpp.s
 
-main.o: main.cpp.o
-.PHONY : main.o
+src/benchmark.o: src/benchmark.cpp.o
+.PHONY : src/benchmark.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/benchmark.cpp.o
+.PHONY : src/benchmark.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+src/benchmark.i: src/benchmark.cpp.i
+.PHONY : src/benchmark.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/benchmark.cpp.i
+.PHONY : src/benchmark.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+src/benchmark.s: src/benchmark.cpp.s
+.PHONY : src/benchmark.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runBenchmarks.dir/build.make CMakeFiles/runBenchmarks.dir/src/benchmark.cpp.s
+.PHONY : src/benchmark.cpp.s
+
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Exam_Lib.dir/build.make CMakeFiles/Exam_Lib.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+test/test_main.o: test/test_main.cpp.o
+.PHONY : test/test_main.o
+
+# target to build an object file
+test/test_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_main.cpp.o
+.PHONY : test/test_main.cpp.o
+
+test/test_main.i: test/test_main.cpp.i
+.PHONY : test/test_main.i
+
+# target to preprocess a source file
+test/test_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_main.cpp.i
+.PHONY : test/test_main.cpp.i
+
+test/test_main.s: test/test_main.cpp.s
+.PHONY : test/test_main.s
+
+# target to generate assembly for a file
+test/test_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_main.cpp.s
+.PHONY : test/test_main.cpp.s
+
+test/test_symbol_table.o: test/test_symbol_table.cpp.o
+.PHONY : test/test_symbol_table.o
+
+# target to build an object file
+test/test_symbol_table.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_symbol_table.cpp.o
+.PHONY : test/test_symbol_table.cpp.o
+
+test/test_symbol_table.i: test/test_symbol_table.cpp.i
+.PHONY : test/test_symbol_table.i
+
+# target to preprocess a source file
+test/test_symbol_table.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_symbol_table.cpp.i
+.PHONY : test/test_symbol_table.cpp.i
+
+test/test_symbol_table.s: test/test_symbol_table.cpp.s
+.PHONY : test/test_symbol_table.s
+
+# target to generate assembly for a file
+test/test_symbol_table.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runUnitTests.dir/build.make CMakeFiles/runUnitTests.dir/test/test_symbol_table.cpp.s
+.PHONY : test/test_symbol_table.cpp.s
 
 # Help Target
 help:
@@ -305,28 +428,40 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... Exam_Lib"
-	@echo "... GraphVisualizer.o"
-	@echo "... GraphVisualizer.i"
-	@echo "... GraphVisualizer.s"
-	@echo "... Reaction.o"
-	@echo "... Reaction.i"
-	@echo "... Reaction.s"
-	@echo "... Simulator.o"
-	@echo "... Simulator.i"
-	@echo "... Simulator.s"
-	@echo "... Species.o"
-	@echo "... Species.i"
-	@echo "... Species.s"
-	@echo "... SystemState.o"
-	@echo "... SystemState.i"
-	@echo "... SystemState.s"
-	@echo "... Vessel.o"
-	@echo "... Vessel.i"
-	@echo "... Vessel.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... runBenchmarks"
+	@echo "... runUnitTests"
+	@echo "... src/GraphVisualizer.o"
+	@echo "... src/GraphVisualizer.i"
+	@echo "... src/GraphVisualizer.s"
+	@echo "... src/Reaction.o"
+	@echo "... src/Reaction.i"
+	@echo "... src/Reaction.s"
+	@echo "... src/Simulator.o"
+	@echo "... src/Simulator.i"
+	@echo "... src/Simulator.s"
+	@echo "... src/Species.o"
+	@echo "... src/Species.i"
+	@echo "... src/Species.s"
+	@echo "... src/SystemState.o"
+	@echo "... src/SystemState.i"
+	@echo "... src/SystemState.s"
+	@echo "... src/Vessel.o"
+	@echo "... src/Vessel.i"
+	@echo "... src/Vessel.s"
+	@echo "... src/benchmark.o"
+	@echo "... src/benchmark.i"
+	@echo "... src/benchmark.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... test/test_main.o"
+	@echo "... test/test_main.i"
+	@echo "... test/test_main.s"
+	@echo "... test/test_symbol_table.o"
+	@echo "... test/test_symbol_table.i"
+	@echo "... test/test_symbol_table.s"
 .PHONY : help
 
 

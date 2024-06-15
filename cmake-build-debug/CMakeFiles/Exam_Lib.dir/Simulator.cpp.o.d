@@ -211,7 +211,8 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: \
  /usr/include/c++/11/bits/stream_iterator.h \
  /usr/include/c++/11/bits/uses_allocator_args.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/mutex \
+ /usr/include/c++/11/bits/unique_lock.h \
  /home/martinmortensen/CLionProjects/Exam_Lib/Reaction.h \
  /usr/include/c++/11/map /usr/include/c++/11/bits/stl_tree.h \
  /usr/include/c++/11/bits/node_handle.h \
@@ -222,6 +223,8 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: \
  /home/martinmortensen/CLionProjects/Exam_Lib/SystemState.h \
  /home/martinmortensen/CLionProjects/Exam_Lib/SymbolTable.h \
  /home/martinmortensen/CLionProjects/Exam_Lib/Vessel.h \
+ /home/martinmortensen/CLionProjects/Exam_Lib/Observer.h \
+ /home/martinmortensen/CLionProjects/Exam_Lib/PeakHospitalizationObserver.h \
  /usr/include/c++/11/algorithm /usr/include/c++/11/bits/ranges_algo.h \
  /usr/include/c++/11/bits/ranges_util.h \
  /usr/include/c++/11/pstl/glue_algorithm_defs.h \
@@ -229,7 +232,7 @@ CMakeFiles/Exam_Lib.dir/Simulator.cpp.o: \
  /usr/include/c++/11/unordered_map /usr/include/c++/11/bits/hashtable.h \
  /usr/include/c++/11/bits/hashtable_policy.h \
  /usr/include/c++/11/bits/enable_special_members.h \
- /usr/include/c++/11/bits/unordered_map.h /usr/include/c++/11/future \
- /usr/include/c++/11/mutex /usr/include/c++/11/bits/unique_lock.h \
- /usr/include/c++/11/condition_variable \
+ /usr/include/c++/11/bits/unordered_map.h /usr/include/c++/11/iostream \
+ /usr/include/c++/11/istream /usr/include/c++/11/bits/istream.tcc \
+ /usr/include/c++/11/future /usr/include/c++/11/condition_variable \
  /usr/include/c++/11/bits/atomic_futex.h

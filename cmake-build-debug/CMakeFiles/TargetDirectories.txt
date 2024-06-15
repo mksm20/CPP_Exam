@@ -1,3 +1,6 @@
 /home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/Exam_Lib.dir
+/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/runUnitTests.dir
+/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/runBenchmarks.dir
+/home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/test.dir
 /home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/martinmortensen/CLionProjects/Exam_Lib/cmake-build-debug/CMakeFiles/rebuild_cache.dir
