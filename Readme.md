@@ -10,6 +10,8 @@ circadian rhythm genetic oscillator.
 project_root/
 ├── CMakeLists.txt 
 
+├── matplotlib-cpp/
+
 ├── include/ 
 
 │ ├── Reaction.h 
