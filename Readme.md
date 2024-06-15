@@ -8,26 +8,45 @@ circadian rhythm genetic oscillator.
 
 ## Project Structure
 project_root/
-├── CMakeLists.txt \n
-├── include/ \n
-│ ├── Reaction.h \n
-│ ├── Species.h \n
-│ ├── SystemState.h \n
-│ ├── Simulator.h \n
-│ ├── Vessel.h \n
-│ ├── Observer.h \n
-│ └── SymbolTable.h \n
-├── src/ \n
-│ ├── main.cpp \n
-│ ├── Reaction.cpp \n
-│ ├── Species.cpp \n
-│ ├── SystemState.cpp \n
-│ ├── Simulator.cpp \n
-│ ├── Vessel.cpp \n
-│ └── benchmark.cpp \n
-└── test/ \n
-├── test_main.cpp \n
-└── test_symbol_table.cpp \n
+├── CMakeLists.txt 
+
+├── include/ 
+
+│ ├── Reaction.h 
+
+│ ├── Species.h 
+
+│ ├── SystemState.h 
+
+│ ├── Simulator.h 
+
+│ ├── Vessel.h 
+
+│ ├── Observer.h 
+
+│ └── SymbolTable.h 
+
+├── src/ 
+
+│ ├── main.cpp 
+
+│ ├── Reaction.cpp 
+
+│ ├── Species.cpp 
+
+│ ├── SystemState.cpp 
+
+│ ├── Simulator.cpp 
+
+│ ├── Vessel.cpp 
+
+│ └── benchmark.cpp 
+
+└── test/ 
+
+├── test_main.cpp 
+
+└── test_symbol_table.cpp 
 
 ## Requirements
 
