@@ -39,12 +39,11 @@ namespace sim {
         std::vector<Species> species;
     };
 
-// Declare the operators in the namespace
     class Reaction;
 
     Reaction operator>>(const CombinedSpecies& combined, double rate);
     Reaction operator>>(const CombinedSpecies& combined, const CombinedSpecies& output);
 
-} // namespace sim
+} 
 
 #endif //EXAM_LIB_SPECIES_H

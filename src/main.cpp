@@ -91,7 +91,7 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
     return v;
 }
 int main() {
-    uint32_t population = 10000; // Example population size
+    uint32_t population = 10000; 
 
     // SEIHR Simulation
     auto state_seihr = std::make_shared<SystemState>();
@@ -105,7 +105,6 @@ int main() {
     std::vector<int> peakValues_seihr;
     simulator_seihr.run();
 
-    // Calculate the average peak value of the hospitalized population for SEIHR
     double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
     std::cout << "Average peak value of hospitalized population (SEIHR): " << averagePeak_seihr << std::endl;
 
@@ -130,10 +129,10 @@ int main() {
     std::cerr << "Initial state for Circadian Rhythm: " << std::endl;
     state_circadian->prettyPrint();
 
-    Simulator simulator_circadian(v_circadian, state_circadian, 100.0); // Run simulation for 100 time units
+    Simulator simulator_circadian(v_circadian, state_circadian, 100.0); 
 
     std::vector<int> peakValues_circadian;
-    simulator_circadian.run(); // Run 100 parallel simulations
+    simulator_circadian.run(); 
 
     // Collect and plot the results using matplotlib for Circadian Rhythm
     const auto& results_circadian = state_circadian->getTrajectory();

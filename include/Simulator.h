@@ -26,10 +26,10 @@ namespace sim {
         double endTime;
         double currentTime;
         std::shared_ptr<Observer> observer; // Add observer member
-        std::mutex mtx; // Mutex for thread-safe access
+        std::mutex mtx; 
 
         void handleReaction();
-        int runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults); // Helper function for running a single simulation
+        int runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults); 
         int
         runSingleSimulation(Vessel vessel, SystemState stateCopy,
                             std::map<std::string, std::vector<double>> &aggregatedResults,

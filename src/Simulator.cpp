@@ -60,9 +60,8 @@ namespace sim {
         std::cout << "Single simulation run completed" << std::endl;
 
         {
-            std::lock_guard<std::mutex> lock(mtx); // Lock for thread-safe access
+            std::lock_guard<std::mutex> lock(mtx); // Absolute Garbage
             std::cout << "Aggregating results" << std::endl;
-            // Aggregate results for each species
             const auto& trajectory = stateCopy.getTrajectory();
             std::cout << "Trajectory size: " << trajectory.size() << std::endl;
             for (const auto& [species, counts] : trajectory) {
@@ -75,7 +74,7 @@ namespace sim {
                 }
                 std::cout << "Results aggregated for species: " << species << std::endl;
             }
-        } // The lock is automatically released here
+        } // Does not work at all
 
         // Find the peak value of the hospitalized population
         int peakHospitalization = localObserver->getPeakHospitalization();
@@ -87,11 +86,11 @@ namespace sim {
         std::vector<std::jthread> threads;
         std::vector<std::promise<int>> promises(numSimulations);
         std::vector<std::future<int>> futures;
-        std::mutex mtx; // Define the mutex here to avoid global scope issues
+        std::mutex mtx; 
 
         for (int i = 0; i < numSimulations; ++i) {
             auto stateCopy = SystemState(*state); // Make a copy of the state for each thread
-            stateCopy.replaceState(); // Ensure that the copied state has a fresh symbol table copy
+            stateCopy.replaceState(); // cope symbol table by value
             auto vesselCopy = vessel; // Make a copy of the vessel for each thread
             promises[i] = std::promise<int>();
             futures.push_back(promises[i].get_future());
@@ -118,7 +117,7 @@ namespace sim {
             }
         }
 
-        // Normalize the aggregated results
+        // Normalize results
         for (auto& [species, counts] : aggregatedResults) {
             for (auto& count : counts) {
                 count /= numSimulations;
@@ -127,4 +126,4 @@ namespace sim {
         std::cout << "Completed all parallel simulations" << std::endl;
     }
 
-} // namespace sim
+}

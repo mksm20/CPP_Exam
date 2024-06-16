@@ -74,7 +74,7 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
     v.add(MR >> betaR >>= MR + R);
     v.add((A + R) >> gammaC >>= C);
     v.add(C >> deltaA >>= R);
-    v.add(A >> deltaA >>= Species("env", 0, true));  // handle environment
+    v.add(A >> deltaA >>= Species("env", 0, true));
     v.add(R >> deltaR >>= Species("env", 0, true));
     v.add(MA >> deltaMA >>= Species("env", 0, true));
     v.add(MR >> deltaMR >>= Species("env", 0, true));

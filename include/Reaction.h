@@ -51,6 +51,6 @@ namespace sim {
     Reaction operator>>(const CombinedSpecies& combined, const Species& output);
     Reaction operator>>(const CombinedSpecies& combined, const CombinedSpecies& output);
 
-} // namespace sim
+}
 
 #endif //EXAM_LIB_REACTION_H

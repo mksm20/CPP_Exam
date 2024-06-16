@@ -50,8 +50,8 @@ namespace sim {
     }
 
     void SystemState::replaceState() {
-        SymbolTable<std::string, int> newTable(state); // Create a fresh copy of the existing symbol table
-        state = newTable; // Replace the old state with the new copy
+        SymbolTable<std::string, int> newTable(state); // Create copy symbol table to solve concurrency issue, does not solve anything
+        state = newTable;
     }
     void SystemState::removeSpecies(const std::string& species, int count) {
         int currentCount = state.lookup(species);
