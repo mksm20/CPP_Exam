@@ -85,7 +85,7 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
 void benchmarkSingleCore(int numSimulations, double endTime) {
 
     auto state = std::make_shared<sim::SystemState>();
-    sim::Vessel vessel = seihr(100000, state);
+    sim::Vessel vessel = circadian_rhythm(state);
     sim::Simulator simulator(vessel, state, endTime);
 
     auto start = std::chrono::high_resolution_clock::now();
