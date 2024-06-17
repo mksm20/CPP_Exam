@@ -44,7 +44,7 @@ namespace sim {
 
         // Use the observer to observe the current state
         if (observer) {
-            observer->observe(*state);
+            observer->move_next();
         }
 
         // Record the state
@@ -60,7 +60,7 @@ namespace sim {
         std::cout << "Single simulation run completed" << std::endl;
 
         {
-            std::lock_guard<std::mutex> lock(mtx); // Absolute Garbage
+            std::lock_guard<std::mutex> lock(mtx);
             std::cout << "Aggregating results" << std::endl;
             const auto& trajectory = stateCopy.getTrajectory();
             std::cout << "Trajectory size: " << trajectory.size() << std::endl;
@@ -74,7 +74,7 @@ namespace sim {
                 }
                 std::cout << "Results aggregated for species: " << species << std::endl;
             }
-        } // Does not work at all
+        }
 
         // Find the peak value of the hospitalized population
         int peakHospitalization = localObserver->getPeakHospitalization();
@@ -86,11 +86,11 @@ namespace sim {
         std::vector<std::jthread> threads;
         std::vector<std::promise<int>> promises(numSimulations);
         std::vector<std::future<int>> futures;
-        std::mutex mtx; 
+        std::mutex mtx;
 
         for (int i = 0; i < numSimulations; ++i) {
             auto stateCopy = SystemState(*state); // Make a copy of the state for each thread
-            stateCopy.replaceState(); // cope symbol table by value
+            stateCopy.replaceState(); // Copy symbol table by value
             auto vesselCopy = vessel; // Make a copy of the vessel for each thread
             promises[i] = std::promise<int>();
             futures.push_back(promises[i].get_future());

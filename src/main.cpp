@@ -9,11 +9,14 @@
 #include <iostream>
 #include <cmath>
 #include <numeric>
+#include <thread>
 #include "../matplotlib-cpp/matplotlibcpp.h"
 #include "PeakHospitalizationObserver.h"
 
 namespace plt = matplotlibcpp;
 using namespace sim;
+
+void mltplt(std::shared_ptr<SystemState> systemState, const Vessel vessel,const std::vector<std::string> nameplots ,int scalar,const std::string species_name);
 
 Vessel seihr(uint32_t N, std::shared_ptr<SystemState> state) {
     auto v = Vessel{"COVID19 SEIHR: " + std::to_string(N), state};
@@ -91,37 +94,68 @@ Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
     return v;
 }
 int main() {
-    uint32_t population = 10000; 
+    uint32_t population = 10000;
+    // Create observer
+    auto observer = std::make_shared<sim::PeakHospitalizationObserver>();
 
     // SEIHR Simulation
     auto state_seihr = std::make_shared<SystemState>();
     Vessel v_seihr = seihr(population, state_seihr);
 
+    // Start observing
+
+
     std::cerr << "Initial state for SEIHR: " << std::endl;
     state_seihr->prettyPrint();
 
-    Simulator simulator_seihr(v_seihr, state_seihr, 100.0); // Run simulation for 100 time units
-
-    std::vector<int> peakValues_seihr;
+    // Pass observer to simulator
+    Simulator simulator_seihr(v_seihr, state_seihr, 100.0, observer);
+    observer->observe(state_seihr, 100, const_cast<double &>(simulator_seihr.getCurrentTime()));
     simulator_seihr.run();
 
-    double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
-    std::cout << "Average peak value of hospitalized population (SEIHR): " << averagePeak_seihr << std::endl;
+    // ensure the observer's coroutine is completed
+    while (observer->move_next());
+    std::cout << "Peak Hospitalization: " << observer->getPeakHospitalization() << std::endl;
+    for(const auto& species:v_seihr.getSpecies()){
+        if(species.getName() == "H"){
+            auto a = state_seihr->getTrajectory();
+            auto int_vec = a.at("H");
+            auto i = *max_element(int_vec.begin(), int_vec.end());
+            std::cout << i << std::endl;
+
+        }
+    }
+
+
+    //double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
+    //std::cout << "Average peak value of hospitalized population (SEIHR): " << averagePeak_seihr << std::endl;
 
     // Collect and plot the results using matplotlib for SEIHR
-    const auto& results_seihr = state_seihr->getTrajectory();
+    std::vector<std::string> nameplot{"S", "E", "I", "H", "R"};
+    //std::jthread plot_thread(mltplt, state_seihr, v_seihr, nameplot, 1000, "H");
+    mltplt(state_seihr, v_seihr, nameplot, 1000, "H");
+
+    /*const auto& results_seihr = state_seihr->getTrajectory();
     const auto& timePoints_seihr = state_seihr->getTimePoints();
 
     for (const auto& species : v_seihr.getSpecies()) {
-        plt::named_plot(species.getName(), timePoints_seihr, results_seihr.at(species.getName()));
+        if(species.getName() == "H") {
+            auto results = results_seihr.at(species.getName());
+            for(auto& value : results) {
+                value *= 1000;
+            }
+            plt::named_plot(species.getName(), timePoints_seihr, results);
+        }
+        else
+            plt::named_plot(species.getName(), timePoints_seihr, results_seihr.at(species.getName()));
     }
     plt::legend();
     plt::show();
-
+    */
     // Generate the graph visualization for SEIHR
     GraphVisualizer gv_seihr(v_seihr.getSpecies(), v_seihr.getReactions());
     gv_seihr.generateGraph("seihr_graph.png");
-
+    /*
     // Circadian Rhythm Simulation
     auto state_circadian = std::make_shared<SystemState>();
     Vessel v_circadian = circadian_rhythm(state_circadian);
@@ -147,6 +181,27 @@ int main() {
     // Generate the graph visualization for Circadian Rhythm
     GraphVisualizer gv_circadian(v_circadian.getSpecies(), v_circadian.getReactions());
     gv_circadian.generateGraph("circadian_rhythm_graph.png");
+    */
 
     return 0;
+}
+
+void mltplt(std::shared_ptr<SystemState> systemState, const Vessel vessel,  const std::vector<std::string> nameplots,int scalar = 0, const std::string species_name = ""){
+    const auto& results_traj = systemState->getTrajectory();
+    const auto& timePoints_seihr = systemState->getTimePoints();
+
+    for (const auto& species : vessel.getSpecies()) {
+        if(std::find(nameplots.begin(), nameplots.end(), species.getName()) != nameplots.end()) {
+            if (species.getName() == species_name) {
+                auto results = results_traj.at(species.getName());
+                for (auto &value: results) {
+                    value *= scalar;
+                }
+                plt::named_plot(species.getName(), timePoints_seihr, results);
+            } else
+                plt::named_plot(species.getName(), timePoints_seihr, results_traj.at(species.getName()));
+        }
+    }
+    plt::legend();
+    plt::show();
 }

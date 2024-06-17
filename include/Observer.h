@@ -2,13 +2,17 @@
 #define EXAM_LIB_OBSERVER_H
 #pragma once
 #include "SystemState.h"
+#include <memory>
 
 namespace sim {
+
     class Observer {
     public:
-        virtual void observe(const SystemState &state) = 0;
+        virtual void observe(const std::shared_ptr<SystemState>& state, double endTime, double& currentTime) = 0;
+        virtual bool move_next() = 0; // Add a pure virtual method to move the coroutine
         virtual ~Observer() = default;
     };
+
 }
 
-#endif //EXAM_LIB_OBSERVER_H
+#endif // EXAM_LIB_OBSERVER_H
