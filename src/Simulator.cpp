@@ -6,14 +6,24 @@
 #include <mutex>
 #include <thread>
 #include <future>
+#include <random>
+#include <condition_variable>
+#include "functions.h"
 
 namespace sim {
+    std::mutex mtx;
 
-    Simulator::Simulator(const Vessel& vessel, std::shared_ptr<SystemState> state, double endTime, std::shared_ptr<Observer> observer)
+    Simulator::Simulator(const Vessel& vessel, SystemState &state, double endTime)
+            : vessel(vessel), reactions(vessel.getReactions()), state(state), endTime(endTime), currentTime(0) {}
+
+    Simulator::Simulator(Vessel &vessel, SystemState &state, double endTime)
+            : vessel(vessel), reactions(vessel.getReactions()), state(state), currentTime(0), endTime(endTime) {}
+
+    Simulator::Simulator(const Vessel& vessel, SystemState &state, double endTime, std::shared_ptr<Observer> observer)
             : vessel(const_cast<Vessel &>(vessel)), reactions(vessel.getReactions()), state(state), endTime(endTime), currentTime(0), observer(observer) {}
 
     Simulator::Simulator(Vessel vessel, SystemState state, double endTime, bool second_const, std::shared_ptr<Observer> observer)
-            : vessel(vessel), reactions(vessel.getReactions()), state(std::make_shared<SystemState>(state)), endTime(endTime), currentTime(0), observer(observer) {}
+            : vessel(vessel), reactions(vessel.getReactions()), state(state), endTime(endTime), currentTime(0), observer(observer) {}
 
     void Simulator::run() {
         while (currentTime < endTime) {
@@ -27,7 +37,7 @@ namespace sim {
         const Reaction* nextReaction = nullptr;
 
         for (const auto& reaction : reactions) {
-            double delay = reaction.calculateDelay(state->getState());
+            double delay = reaction.calculateDelay(state.getState());
             if (delay < minDelay) {
                 minDelay = delay;
                 nextReaction = &reaction;
@@ -39,7 +49,7 @@ namespace sim {
 
         // Execute the reaction
         if (nextReaction) {
-            nextReaction->execute(state->getState(), *state);
+            nextReaction->execute(state.getState(), state);
         }
 
         // Use the observer to observe the current state
@@ -48,57 +58,52 @@ namespace sim {
         }
 
         // Record the state
-        state->recordState(currentTime);
+        state.recordState(currentTime);
     }
 
-    int Simulator::runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults, std::mutex& mtx) {
+    int Simulator::runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults) {
         std::cout << "Starting single simulation" << std::endl;
-        auto localObserver = std::make_shared<PeakHospitalizationObserver>(); // Use the concrete observer class
-        Simulator singleSimulator(vessel, std::make_shared<SystemState>(stateCopy), endTime, localObserver);
-        singleSimulator.run();
 
-        std::cout << "Single simulation run completed" << std::endl;
+        // Use unique_ptr to ensure unique addresses
+        auto s = std::make_unique<SystemState>();
+        auto v = std::make_unique<Vessel>(seihr(100000, *s));
+        auto singleSimulator = std::make_unique<Simulator>(*v, *s, endTime);
 
-        {
-            std::lock_guard<std::mutex> lock(mtx);
-            std::cout << "Aggregating results" << std::endl;
-            const auto& trajectory = stateCopy.getTrajectory();
-            std::cout << "Trajectory size: " << trajectory.size() << std::endl;
-            for (const auto& [species, counts] : trajectory) {
-                std::cout << "Species: " << species << " Counts size: " << counts.size() << std::endl;
-                if (aggregatedResults.find(species) == aggregatedResults.end()) {
-                    aggregatedResults[species].resize(counts.size(), 0.0);
-                }
-                for (size_t i = 0; i < counts.size(); ++i) {
-                    aggregatedResults[species][i] += counts[i];
-                }
-                std::cout << "Results aggregated for species: " << species << std::endl;
+        // Print addresses to ensure they are unique
+        std::cout << v.get() << " " << s.get() << " " << singleSimulator.get() << " Addresses of vessel, state, and simulator" << std::endl;
+
+        singleSimulator->run();
+        std::scoped_lock lock(mtx);
+
+        const auto &trajectory = singleSimulator->state.getTrajectory();
+        for (const auto &[species, counts]: trajectory) {
+            if (aggregatedResults.find(species) == aggregatedResults.end()) {
+                aggregatedResults[species].resize(counts.size(), 0.0);
+            }
+            for (size_t i = 0; i < counts.size(); ++i) {
+                aggregatedResults[species][i] += counts[i];
             }
         }
 
-        // Find the peak value of the hospitalized population
-        int peakHospitalization = localObserver->getPeakHospitalization();
-        std::cout << "Peak hospitalization: " << peakHospitalization << std::endl;
-        return peakHospitalization;
+        return 1;
     }
 
-    void Simulator::runParallel(int numSimulations, std::vector<int>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults) {
+
+    void Simulator::runParallel(int numSimulations, std::vector<int>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults, std::vector<SystemState> &states, std::vector<Vessel> &vessels) {
         std::vector<std::jthread> threads;
         std::vector<std::promise<int>> promises(numSimulations);
         std::vector<std::future<int>> futures;
-        std::mutex mtx;
 
         for (int i = 0; i < numSimulations; ++i) {
-            auto stateCopy = SystemState(*state); // Make a copy of the state for each thread
-            stateCopy.replaceState(); // Copy symbol table by value
-            auto vesselCopy = vessel; // Make a copy of the vessel for each thread
+            auto vesselCopy = vessels.at(i); // Make a copy of the vessel for each thread
             promises[i] = std::promise<int>();
+            auto state = vesselCopy.getSystemState();
             futures.push_back(promises[i].get_future());
-            std::cout << "Starting simulation thread " << i + 1 << std::endl;
-            threads.emplace_back([this, vesselCopy, stateCopy, promise = std::move(promises[i]), &aggregatedResults, &mtx]() mutable {
+            std::cout << "Starting simulation thread " << i + 1 << " out of " << numSimulations << std::endl;
+            threads.emplace_back([this, vessels, state, promise = std::move(promises[i]), &aggregatedResults, i]() mutable {
                 try {
-                    int peakValue = this->runSingleSimulation(vesselCopy, stateCopy, aggregatedResults, mtx);
-                    std::cout << "Simulation thread completed with peak value: " << peakValue << std::endl;
+                    auto state = SystemState();
+                    int peakValue = this->runSingleSimulation(vessels.at(i), vessels.at(i).getSystemState(), aggregatedResults);
                     promise.set_value(peakValue);
                 } catch (const std::exception& e) {
                     std::cerr << "Exception in thread: " << e.what() << std::endl;
@@ -125,5 +130,4 @@ namespace sim {
         }
         std::cout << "Completed all parallel simulations" << std::endl;
     }
-
 }

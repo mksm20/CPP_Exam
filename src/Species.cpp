@@ -8,6 +8,7 @@ namespace sim {
             : name(name), count(initialCount), env(false){}
     Species::Species(const std::string& name, int initialCount, bool env)
             : name(name), count(initialCount), env(env) {}
+
     const std::string& Species::getName() const {
         return name;
     }
@@ -31,8 +32,21 @@ namespace sim {
 
     CombinedSpecies::CombinedSpecies(const std::vector<Species>& species) : species(species) {}
 
-    const std::vector<Species>& CombinedSpecies::getSpecies() const {
+    CombinedSpecies::CombinedSpecies(const CombinedSpecies& other) : species(other.species) {}
+
+    CombinedSpecies& CombinedSpecies::operator=(const CombinedSpecies& other) {
+        if (this != &other) {
+            species = other.species;
+        }
+        return *this;
+    }
+
+    // Destructor for CombinedSpecies
+    CombinedSpecies::~CombinedSpecies() {}
+
+    const std::vector<Species> &CombinedSpecies::getSpecies() const {
         return species;
     }
+
 
 } // namespace sim

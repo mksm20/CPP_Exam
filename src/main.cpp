@@ -10,6 +10,8 @@
 #include <cmath>
 #include <numeric>
 #include <thread>
+#include <iomanip>
+#include "functions.h"
 #include "../matplotlib-cpp/matplotlibcpp.h"
 #include "PeakHospitalizationObserver.h"
 
@@ -17,114 +19,47 @@ namespace plt = matplotlibcpp;
 using namespace sim;
 
 void mltplt(std::shared_ptr<SystemState> systemState, const Vessel vessel,const std::vector<std::string> nameplots ,int scalar,const std::string species_name);
-
-Vessel seihr(uint32_t N, std::shared_ptr<SystemState> state) {
-    auto v = Vessel{"COVID19 SEIHR: " + std::to_string(N), state};
-    const auto eps = 0.0009; // initial fraction of infectious
-    const auto I0 = size_t(std::round(eps * N)); // initial infectious
-    const auto E0 = size_t(std::round(eps * N * 15)); // initial exposed
-    const auto S0 = N - I0 - E0; // initial susceptible
-    const auto R0 = 2.4; // initial basic reproductive number
-    const auto alpha = 1.0 / 5.1; // incubation rate (E -> I) ~5.1 days
-    const auto gamma = 1.0 / 3.1; // recovery rate (I -> R) ~3.1 days
-    const auto beta = R0 * gamma; // infection/generation rate (S+I -> E+I)
-    const auto P_H = 0.9e-3; // probability of hospitalization
-    const auto kappa = gamma * P_H * (1.0 - P_H); // hospitalization rate (I -> H)
-    const auto tau = 1.0 / 10.12; // removal rate in hospital (H -> R) ~10.12 days
-    const auto S = v.add("S", S0); // susceptible
-    const auto E = v.add("E", E0); // exposed
-    const auto I = v.add("I", I0); // infectious
-    const auto H = v.add("H", 0); // hospitalized
-    const auto R = v.add("R", 0); // removed/immune (recovered + dead)
-    v.add(S >> (beta / N) >>= E); // susceptible becomes exposed
-    v.add((S + I) >> (beta / N) >>= CombinedSpecies({E, I})); // infectious infects susceptible
-    v.add(E >> alpha >>= I); // exposed becomes infectious
-    v.add(I >> gamma >>= R); // infectious becomes removed
-    v.add(I >> kappa >>= H); // infectious becomes hospitalized
-    v.add(H >> tau >>= R); // hospitalized becomes removed
-    return v;
-}
-
-Vessel circadian_rhythm(std::shared_ptr<SystemState> state) {
-    const auto alphaA = 50;
-    const auto alpha_A = 500;
-    const auto alphaR = 0.01;
-    const auto alpha_R = 50;
-    const auto betaA = 50;
-    const auto betaR = 5;
-    const auto gammaA = 1;
-    const auto gammaR = 1;
-    const auto gammaC = 2;
-    const auto deltaA = 1;
-    const auto deltaR = 0.2;
-    const auto deltaMA = 10;
-    const auto deltaMR = 0.5;
-    const auto thetaA = 50;
-    const auto thetaR = 100;
+void displayAggregatedResults(const std::map<std::string, std::vector<double>> &aggregatedResults) ;
+void plotAggregatedResults(const std::map<std::string, std::vector<double>> &aggregatedResults, const std::vector<double> &timePoints, const std::vector<std::string> &nameplots, int scalar = 0, const std::string &species_name = "");
 
 
-    auto v = Vessel{"Circadian Rhythm", state};
-    const auto DA = v.add("DA", 1);
-    const auto D_A = v.add("D_A", 0);
-    const auto DR = v.add("DR", 1);
-    const auto D_R = v.add("D_R", 0);
-    const auto MA = v.add("MA", 0);
-    const auto MR = v.add("MR", 0);
-    const auto A = v.add("A", 0);
-    const auto R = v.add("R", 0);
-    const auto C = v.add("C", 0);
 
-    v.add((A + DA) >> gammaA >>= D_A);
-    v.add(D_A >> thetaA >>= DA + A);
-    v.add((A + DR) >> gammaR >>= D_R);
-    v.add(D_R >> thetaR >>= DR + A);
-    v.add(D_A >> alpha_A >>= MA + D_A);
-    v.add(DA >> alphaA >>= MA + DA);
-    v.add(D_R >> alpha_R >>= MR + D_R);
-    v.add(DR >> alphaR >>= MR + DR);
-    v.add(MA >> betaA >>= MA + A);
-    v.add(MR >> betaR >>= MR + R);
-    v.add((A + R) >> gammaC >>= C);
-    v.add(C >> deltaA >>= R);
-    v.add(A >> deltaA >>= Species("env", 0, true));  // handle environment
-    v.add(R >> deltaR >>= Species("env", 0, true));
-    v.add(MA >> deltaMA >>= Species("env", 0, true));
-    v.add(MR >> deltaMR >>= Species("env", 0, true));
-
-    return v;
-}
 int main() {
     uint32_t population = 10000;
     // Create observer
     auto observer = std::make_shared<sim::PeakHospitalizationObserver>();
-
     // SEIHR Simulation
-    auto state_seihr = std::make_shared<SystemState>();
-    Vessel v_seihr = seihr(population, state_seihr);
+    auto state_seihr = SystemState();
+    auto v_seihr = seihr(population, state_seihr);
+    std::vector<Vessel> vessels;
+    std::vector<SystemState> states;
+    for(auto i = 0;i < 10; i++){
+        auto state = v_seihr.getSystemState();
+        auto v= v_seihr;
+        states.push_back(state);
+        vessels.push_back(v);
+    }
 
     // Start observing
 
 
     std::cerr << "Initial state for SEIHR: " << std::endl;
-    state_seihr->prettyPrint();
+    state_seihr.prettyPrint();
+    std::vector<int>peak_values{};
+    std::map<std::basic_string<char>,std::vector<double>> aggregated_results;
 
     // Pass observer to simulator
     Simulator simulator_seihr(v_seihr, state_seihr, 100.0, observer);
-    observer->observe(state_seihr, 100, const_cast<double &>(simulator_seihr.getCurrentTime()));
-    simulator_seihr.run();
+    //observer->observe(state_seihr, 100, const_cast<double &>(simulator_seihr.getCurrentTime()));
+    simulator_seihr.runParallel(6, peak_values, aggregated_results, (std::vector<SystemState> &) states,
+                                (std::vector<Vessel> &) vessels);
+
 
     // ensure the observer's coroutine is completed
     while (observer->move_next());
     std::cout << "Peak Hospitalization: " << observer->getPeakHospitalization() << std::endl;
-    for(const auto& species:v_seihr.getSpecies()){
-        if(species.getName() == "H"){
-            auto a = state_seihr->getTrajectory();
-            auto int_vec = a.at("H");
-            auto i = *max_element(int_vec.begin(), int_vec.end());
-            std::cout << i << std::endl;
-
-        }
-    }
+    std::cout << "getting to aggregated results" << std::endl;
+    displayAggregatedResults(aggregated_results);
 
 
     //double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
@@ -133,7 +68,7 @@ int main() {
     // Collect and plot the results using matplotlib for SEIHR
     std::vector<std::string> nameplot{"S", "E", "I", "H", "R"};
     //std::jthread plot_thread(mltplt, state_seihr, v_seihr, nameplot, 1000, "H");
-    mltplt(state_seihr, v_seihr, nameplot, 1000, "H");
+    //mltplt(state_seihr, v_seihr, nameplot, 1000, "H");
 
     /*const auto& results_seihr = state_seihr->getTrajectory();
     const auto& timePoints_seihr = state_seihr->getTimePoints();
@@ -186,9 +121,26 @@ int main() {
     return 0;
 }
 
-void mltplt(std::shared_ptr<SystemState> systemState, const Vessel vessel,  const std::vector<std::string> nameplots,int scalar = 0, const std::string species_name = ""){
-    const auto& results_traj = systemState->getTrajectory();
-    const auto& timePoints_seihr = systemState->getTimePoints();
+void displayAggregatedResults(const std::map<std::string, std::vector<double>> &aggregatedResults) {
+    std::cout << "\nAggregated Results:\n";
+    std::cout << "--------------------------------------------------\n";
+    std::cout << std::setw(15) << "Species" << std::setw(15) << "Count Index" << std::setw(15) << "Count Value" << "\n";
+    std::cout << "--------------------------------------------------\n";
+    auto count_avg = 0;
+    for (const auto &[species, counts] : aggregatedResults) {
+        count_avg = 0;
+        for (size_t i = 0; i < counts.size(); ++i) {
+            count_avg += counts[i];
+            count_avg/= 2;
+        }
+        std::cout << std::setw(15) << species << std::setw(15) << std::setw(15) << count_avg << "\n";
+        std::cout << "--------------------------------------------------\n";
+    }
+}
+
+void mltplt(SystemState &systemState, const Vessel vessel,  const std::vector<std::string> nameplots,int scalar = 0, const std::string species_name = ""){
+    const auto& results_traj = systemState.getTrajectory();
+    const auto& timePoints_seihr = systemState.getTimePoints();
 
     for (const auto& species : vessel.getSpecies()) {
         if(std::find(nameplots.begin(), nameplots.end(), species.getName()) != nameplots.end()) {
@@ -205,3 +157,4 @@ void mltplt(std::shared_ptr<SystemState> systemState, const Vessel vessel,  cons
     plt::legend();
     plt::show();
 }
+

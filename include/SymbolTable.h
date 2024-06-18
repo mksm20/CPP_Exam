@@ -4,12 +4,18 @@
 #include <map>
 #include <string>
 #include <stdexcept>
+#include <vector>
+#include <memory>
+#include <map>
+#include <iostream>
 
 template<typename Key, typename Value>
 class SymbolTable {
 public:
     SymbolTable() = default;  // Default constructor
     SymbolTable(const SymbolTable& other);  // Copy constructor
+    SymbolTable& operator=(const SymbolTable& other);  // Copy assignment operator
+    ~SymbolTable(){}
 
     void add(const Key& key, const Value& value);
     void update(const Key& key, const Value& value);
@@ -23,6 +29,14 @@ private:
 
 template<typename Key, typename Value>
 SymbolTable<Key, Value>::SymbolTable(const SymbolTable& other) : table(other.table) {}
+
+template<typename Key, typename Value>
+SymbolTable<Key, Value>& SymbolTable<Key, Value>::operator=(const SymbolTable& other) {
+    if (this != &other) {
+        table = other.table;
+    }
+    return *this;
+}
 
 template<typename Key, typename Value>
 void SymbolTable<Key, Value>::add(const Key& key, const Value& value) {

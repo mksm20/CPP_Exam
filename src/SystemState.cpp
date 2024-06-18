@@ -4,6 +4,33 @@ namespace sim {
     SystemState::SystemState(const SystemState& other)
             : state(other.state), trajectory(other.trajectory), timePoints(other.timePoints) {}
 
+    SystemState& SystemState::operator=(const SystemState& other) {
+        if (this != &other) {
+            state = other.state;
+            trajectory = other.trajectory;
+            timePoints = other.timePoints;
+        }
+        return *this;
+    }
+
+    SystemState::SystemState(SystemState&& other) noexcept
+            : state(std::move(other.state)),
+              trajectory(std::move(other.trajectory)),
+              timePoints(std::move(other.timePoints))
+    {}
+
+    SystemState& SystemState::operator=(SystemState&& other) noexcept {
+        if (this != &other) {
+            state = std::move(other.state);
+            trajectory = std::move(other.trajectory);
+            timePoints = std::move(other.timePoints);
+        }
+        return *this;
+    }
+
+    SystemState::~SystemState() {
+    }
+
     void SystemState::addSpecies(const Species& species) {
         state.add(species.getName(), species.getCount());
         trajectory[species.getName()] = std::vector<int>();
@@ -51,7 +78,9 @@ namespace sim {
 
     void SystemState::replaceState() {
         SymbolTable<std::string, int> newTable(state); // Create copy symbol table to solve concurrency issue, does not solve anything
+        std::cout << &newTable << std::endl;
         state = newTable;
+        std::cout << &state << std::endl;
     }
     void SystemState::removeSpecies(const std::string& species, int count) {
         int currentCount = state.lookup(species);

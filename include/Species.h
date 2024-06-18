@@ -32,7 +32,11 @@ namespace sim {
 
     class CombinedSpecies {
     public:
+
         CombinedSpecies(const std::vector<Species>& species);
+        CombinedSpecies(const CombinedSpecies& other);
+        CombinedSpecies& operator=(const CombinedSpecies& other);
+        ~CombinedSpecies();
         const std::vector<Species>& getSpecies() const;
 
     private:
