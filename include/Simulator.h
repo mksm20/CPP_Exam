@@ -20,11 +20,11 @@ namespace sim {
         Simulator(Vessel vessel, SystemState state, double endTime, bool second_const, std::shared_ptr<Observer> observer);
         static bool available();
         void run();
-        void runParallel(int numSimulations, std::vector<int>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults, std::vector<SystemState> &states, std::vector<Vessel> &vessels);
+        void runParallel(int numSimulations, std::map<std::string, std::vector<double>>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults, std::vector<SystemState> &states, std::vector<Vessel> &vessels);
         const double &getCurrentTime(){return currentTime;}
     private:
         void handleReaction();
-        int runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults);
+        std::map<std::string, std::vector<double>> runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults);
 
         Vessel vessel;
         std::vector<Reaction> reactions;

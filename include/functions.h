@@ -6,6 +6,15 @@
 
 using namespace sim;
 
+static Vessel base(SystemState &state, size_t a, size_t b, size_t c, double rate){
+    auto v = Vessel{"base_example", state};
+    const auto A = v.add("A", a);
+    const auto B = v.add("B", b);
+    const auto I = v.add("I", c);
+    v.add((A+B) >> (B+I) >>= rate);
+    return v;
+}
+
 static Vessel seihr(int N, SystemState &state) {
     auto v = Vessel{"COVID19 SEIHR: " + std::to_string(N), state};
     const auto eps = 0.0009; // initial fraction of infectious

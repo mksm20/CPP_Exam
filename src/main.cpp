@@ -31,6 +31,8 @@ int main() {
     // SEIHR Simulation
     auto state_seihr = SystemState();
     auto v_seihr = seihr(population, state_seihr);
+
+    //auto sim = Simulator(v_seihr, state_seihr, 100);
     std::vector<Vessel> vessels;
     std::vector<SystemState> states;
     for(auto i = 0;i < 10; i++){
@@ -40,12 +42,13 @@ int main() {
         vessels.push_back(v);
     }
 
+
     // Start observing
 
 
     std::cerr << "Initial state for SEIHR: " << std::endl;
     state_seihr.prettyPrint();
-    std::vector<int>peak_values{};
+    std::map<std::string, std::vector<double>>peak_values{};
     std::map<std::basic_string<char>,std::vector<double>> aggregated_results;
 
     // Pass observer to simulator
@@ -59,7 +62,7 @@ int main() {
     while (observer->move_next());
     std::cout << "Peak Hospitalization: " << observer->getPeakHospitalization() << std::endl;
     std::cout << "getting to aggregated results" << std::endl;
-    displayAggregatedResults(aggregated_results);
+    //displayAggregatedResults(aggregated_results);
 
 
     //double averagePeak_seihr = std::accumulate(peakValues_seihr.begin(), peakValues_seihr.end(), 0.0) / peakValues_seihr.size();
@@ -70,8 +73,8 @@ int main() {
     //std::jthread plot_thread(mltplt, state_seihr, v_seihr, nameplot, 1000, "H");
     //mltplt(state_seihr, v_seihr, nameplot, 1000, "H");
 
-    /*const auto& results_seihr = state_seihr->getTrajectory();
-    const auto& timePoints_seihr = state_seihr->getTimePoints();
+    const auto& results_seihr = state_seihr.getTrajectory();
+    const auto& timePoints_seihr = state_seihr.getTimePoints();
 
     for (const auto& species : v_seihr.getSpecies()) {
         if(species.getName() == "H") {
@@ -86,7 +89,7 @@ int main() {
     }
     plt::legend();
     plt::show();
-    */
+
     // Generate the graph visualization for SEIHR
     GraphVisualizer gv_seihr(v_seihr.getSpecies(), v_seihr.getReactions());
     gv_seihr.generateGraph("seihr_graph.png");

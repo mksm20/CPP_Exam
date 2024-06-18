@@ -61,49 +61,48 @@ namespace sim {
         state.recordState(currentTime);
     }
 
-    int Simulator::runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults) {
-        std::cout << "Starting single simulation" << std::endl;
-
-        // Use unique_ptr to ensure unique addresses
+    std::map<std::string, std::vector<double>> Simulator::runSingleSimulation(Vessel vessel, SystemState stateCopy, std::map<std::string, std::vector<double>>& aggregatedResults) {
+        //std::cout << "Starting single simulation" << std::endl;
+        std::map<std::string, std::vector<double>> res;
         auto s = std::make_unique<SystemState>();
         auto v = std::make_unique<Vessel>(seihr(100000, *s));
         auto singleSimulator = std::make_unique<Simulator>(*v, *s, endTime);
 
-        // Print addresses to ensure they are unique
         std::cout << v.get() << " " << s.get() << " " << singleSimulator.get() << " Addresses of vessel, state, and simulator" << std::endl;
 
         singleSimulator->run();
-        std::scoped_lock lock(mtx);
+        //std::scoped_lock lock(mtx);
 
         const auto &trajectory = singleSimulator->state.getTrajectory();
         for (const auto &[species, counts]: trajectory) {
-            if (aggregatedResults.find(species) == aggregatedResults.end()) {
-                aggregatedResults[species].resize(counts.size(), 0.0);
+            if (res.find(species) == res.end()) {
+                res[species].resize(counts.size(), 0.0);
             }
             for (size_t i = 0; i < counts.size(); ++i) {
-                aggregatedResults[species][i] += counts[i];
+                res[species][i] += counts[i];
             }
         }
 
-        return 1;
+        return res;
     }
 
 
-    void Simulator::runParallel(int numSimulations, std::vector<int>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults, std::vector<SystemState> &states, std::vector<Vessel> &vessels) {
+    void Simulator::runParallel(int numSimulations, std::map<std::string, std::vector<double>>& peakValues, std::map<std::string, std::vector<double>>& aggregatedResults, std::vector<SystemState> &states, std::vector<Vessel> &vessels) {
         std::vector<std::jthread> threads;
-        std::vector<std::promise<int>> promises(numSimulations);
-        std::vector<std::future<int>> futures;
+        std::vector<std::promise<std::map<std::string, std::vector<double>>>> promises(numSimulations); // N is the size of the vector
+
+        std::vector<std::future<std::map<std::string, std::vector<double>>>> futures;
 
         for (int i = 0; i < numSimulations; ++i) {
-            auto vesselCopy = vessels.at(i); // Make a copy of the vessel for each thread
-            promises[i] = std::promise<int>();
+            auto vesselCopy = vessels.at(i);
+            promises[i] = std::promise<std::map<std::string, std::vector<double>>>();
             auto state = vesselCopy.getSystemState();
             futures.push_back(promises[i].get_future());
             std::cout << "Starting simulation thread " << i + 1 << " out of " << numSimulations << std::endl;
             threads.emplace_back([this, vessels, state, promise = std::move(promises[i]), &aggregatedResults, i]() mutable {
                 try {
                     auto state = SystemState();
-                    int peakValue = this->runSingleSimulation(vessels.at(i), vessels.at(i).getSystemState(), aggregatedResults);
+                    std::map<std::string, std::vector<double>> peakValue = this->runSingleSimulation(vessels.at(i), vessels.at(i).getSystemState(), aggregatedResults);
                     promise.set_value(peakValue);
                 } catch (const std::exception& e) {
                     std::cerr << "Exception in thread: " << e.what() << std::endl;
@@ -116,7 +115,15 @@ namespace sim {
         }
         for (auto& future : futures) {
             try {
-                peakValues.push_back(future.get());
+                auto result = future.get();
+                for (const auto& [species, counts] : result) {
+                    if (aggregatedResults.find(species) == aggregatedResults.end()) {
+                        aggregatedResults[species].resize(counts.size(), 0.0);
+                    }
+                    for (size_t i = 0; i < counts.size(); ++i) {
+                        aggregatedResults[species][i] += counts[i];
+                    }
+                }
             } catch (const std::exception& e) {
                 std::cerr << "Exception while getting future: " << e.what() << std::endl;
             }
